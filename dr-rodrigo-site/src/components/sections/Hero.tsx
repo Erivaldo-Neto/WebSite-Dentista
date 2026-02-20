@@ -1,143 +1,281 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Calendar } from 'lucide-react';
-import { Button } from '../ui/Button';
+import { ArrowRight } from 'lucide-react';
+import rodrigoImg from '../../assets/images/rodrigo-HeroSection.webp';
+import heroBg from '../../assets/images/background-herosection.webp';
+
+const EASE = [0.25, 0.1, 0.25, 1] as const;
 
 export const Hero = () => {
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   return (
-    <section id="hero" className="relative h-screen min-h-[600px] flex items-center overflow-hidden bg-primary px-0">
-      {/* Background Layers */}
-      <div className="absolute inset-0 z-0">
-        {/* Camada 1: Grid Arquitetônico */}
-        <div className="absolute inset-0 bg-grid-white opacity-[0.03]"></div>
+    <section
+      id="hero"
+      className="relative w-full overflow-hidden bg-[#0A2A43]"
+      style={{ height: '100dvh', minHeight: '600px' }}
+    >
 
-        {/* Camada 2: Círculo Blur */}
-        <div className="absolute -bottom-1/4 -right-1/4 w-[60vw] h-[60vw] rounded-full bg-primary-light opacity-30 blur-[100px]"></div>
+      {/* ─── FUNDO: consultório ─────────────────────────────────── */}
+      <motion.img
+        src={heroBg}
+        alt=""
+        aria-hidden="true"
+        fetchPriority="high"
+        decoding="async"
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        style={{ objectPosition: 'center 30%' }}
+        initial={{ opacity: 0, scale: 1.04 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.2, ease: EASE }}
+      />
 
-        {/* Camada 3: Linhas Diagonais Douradas */}
-        <svg className="absolute bottom-0 left-0 w-full h-full opacity-10 pointer-events-none" preserveAspectRatio="none">
-          <line x1="0" y1="100%" x2="30%" y2="0" stroke="#C9A84C" strokeWidth="1" />
-          <line x1="5%" y1="100%" x2="35%" y2="0" stroke="#C9A84C" strokeWidth="1" />
-          <line x1="10%" y1="100%" x2="40%" y2="0" stroke="#C9A84C" strokeWidth="1" />
-        </svg>
+      {/* ─── GRADIENTE BASE — escurece tuda a seção ─────────────── */}
+      {/* Desktop: forte à esquerda, dissolve suavemente ao centro */}
+      <div
+        className="absolute inset-0 z-10 pointer-events-none hidden md:block"
+        style={{
+          background: [
+            'linear-gradient(to right, #0A2A43 22%, rgba(10,42,67,0.92) 38%, rgba(10,42,67,0.55) 55%, rgba(10,42,67,0.15) 72%, transparent 88%)',
+            'linear-gradient(to bottom, rgba(10,42,67,0.5) 0%, transparent 15%)',
+          ].join(', '),
+        }}
+      />
+      {/* Mobile: escurece fortemente a metade inferior (texto) */}
+      <div
+        className="absolute inset-0 z-10 pointer-events-none md:hidden"
+        style={{
+          background:
+            'linear-gradient(to bottom, rgba(10,42,67,0.45) 0%, rgba(10,42,67,0.15) 28%, rgba(10,42,67,0.75) 55%, #0A2A43 75%)',
+        }}
+      />
 
-        {/* Camada 4: Noise */}
-        <div className="absolute inset-0 bg-noise opacity-20 mix-blend-overlay"></div>
-      </div>
+      {/* ─── ZONA DE FUSÃO SUAVE (desktop) ─────────────────────────
+          Overlay adicional que elimina a "costura" onde o gradiente
+          base termina e a imagem do Rodrigo começa.
+          Ocupa a faixa de transição (~30%→60% da largura).
+      ──────────────────────────────────────────────────────────── */}
+      <div
+        className="absolute inset-y-0 z-20 pointer-events-none hidden md:block"
+        style={{
+          left: '28%',
+          width: '38%',
+          background:
+            'linear-gradient(to right, rgba(10,42,67,0.88) 0%, rgba(10,42,67,0.4) 40%, rgba(10,42,67,0.08) 75%, transparent 100%)',
+        }}
+      />
 
-      <div className="container-custom relative z-10 h-full flex flex-col justify-center">
-        <div className="grid grid-cols-1 lg:grid-cols-2 h-full items-center gap-0">
+      {/* ─── DR. RODRIGO — MOBILE ────────────────────────────────────
+          Img puro (sem Framer Motion) → transform: translateX(-50%)
+          funciona sem conflito.
+          Centralizado horizontalmente, ancorado no topo (cabeça visível).
+      ──────────────────────────────────────────────────────────── */}
+      <img
+        src={rodrigoImg}
+        alt="Dr. Rodrigo Silva"
+        decoding="async"
+        className="absolute z-30 md:hidden"
+        style={{
+          top: '58px',            /* logo abaixo da navbar */
+          left: '50%',
+          transform: 'translateX(-50%)',
+          height: '54%',          /* ligeiramente maior que antes */
+          width: 'auto',
+          objectFit: 'contain',
+          objectPosition: 'top center',
+        }}
+      />
 
-          {/* Coluna Esquerda: Conteúdo */}
-          <motion.div
-            className="flex flex-col justify-center h-full pt-20 lg:pt-0 pr-0 lg:pr-12"
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
+      {/* ─── DR. RODRIGO — DESKTOP ───────────────────────────────────
+          Container ocupa a METADE DIREITA da tela (left:50% → right:0).
+          Flex centraliza o Rodrigo dentro dessa metade.
+          Assim ele fica no meio da área direita, não colado no canto.
+      ──────────────────────────────────────────────────────────── */}
+      <motion.div
+        className="absolute z-30 hidden md:flex items-end justify-center"
+        style={{ left: '48%', right: 0, top: 0, bottom: 0 }}
+        initial={{ opacity: 0, x: 30 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1, delay: 0.5, ease: EASE }}
+      >
+        <img
+          src={rodrigoImg}
+          alt="Dr. Rodrigo Silva"
+          fetchPriority="high"
+          decoding="async"
+          style={{
+            height: '94vh',       /* ligeiramente maior */
+            width: 'auto',
+            objectFit: 'contain',
+            objectPosition: 'bottom center',
+          }}
+        />
+      </motion.div>
+
+
+      {/* ─── CONTEÚDO DE TEXTO ──────────────────────────────────── */}
+      <div
+        className="relative z-40 h-full flex items-end md:items-center pb-10 md:pb-0"
+        style={{
+          paddingLeft: 'clamp(20px, 5vw, 96px)',
+          paddingRight: 'clamp(20px, 5vw, 48px)',
+        }}
+      >
+        <div className="flex flex-col w-full max-w-xl md:mt-[6vh]">
+
+          {/* Título */}
+          <motion.h1
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 300,
+              fontSize: 'clamp(32px, 4.5vw, 64px)',
+              lineHeight: 1.1,
+              maxWidth: '520px',
+              marginBottom: '16px',
+              color: '#FFFFFF',
+            }}
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
           >
-            <div className="mb-6">
-              <motion.span
-                className="block text-gold text-xs sm:text-sm tracking-widest uppercase mb-4 pl-1 border-l-2 border-gold"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                transition={{ delay: 0.5 }}
-              >
-                CRO-SP 12345
-              </motion.span>
+            Odontologia de <br />
+            <span style={{ fontStyle: 'italic', color: '#C9A84C' }}>Excelência</span>{' '}
+            &amp; Arte.
+          </motion.h1>
 
-              <h1 className="text-4xl md:text-5xl lg:text-7xl font-heading font-light text-white leading-[1.1] mb-6">
-                Odontologia de <br />
-                <span className="italic font-normal text-gold">Excelência</span> & Arte.
-              </h1>
+          {/* Linha dourada */}
+          <motion.div
+            style={{ width: '48px', height: '1px', background: '#C9A84C', opacity: 0.4, marginBottom: '16px' }}
+            initial={{ opacity: 0, scaleX: 0 }}
+            animate={{ opacity: 0.4, scaleX: 1 }}
+            transition={{ duration: 0.6, delay: 0.5, ease: EASE }}
+          />
 
-              <p className="text-text-secondary text-lg font-light max-w-lg mb-10 leading-relaxed font-sans">
-                Experiência premium em reabilitação oral e estética do sorriso.
-                Tecnologia, conforto e resultados naturais.
-              </p>
+          {/* Subtítulo */}
+          <motion.p
+            style={{
+              fontFamily: 'Montserrat, sans-serif',
+              fontWeight: 300,
+              fontSize: 'clamp(13px, 1.3vw, 15px)',
+              lineHeight: 1.7,
+              color: '#8A9AB0',
+              maxWidth: '390px',
+              marginBottom: '28px',
+            }}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.55, ease: EASE }}
+          >
+            Experiência premium em reabilitação oral e estética do sorriso.
+            Tecnologia de ponta, conforto absoluto e resultados naturais.
+          </motion.p>
 
-              <div className="flex flex-col sm:flex-row gap-4 mb-16">
-                <Button
-                  variant="gold-outline"
-                  size="md"
-                  onClick={() => scrollToSection('contact')}
-                  className="group"
-                >
-                  <span className="flex items-center gap-2">
-                    Agendar Consulta
-                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
+          {/* Estatísticas */}
+          <motion.div
+            className="flex items-center mb-7"
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7, ease: EASE }}
+          >
+            {[
+              { num: '12+', label: 'Anos de Experiência' },
+              { num: '5k+', label: 'Pacientes' },
+              { num: '98%', label: 'Satisfação' },
+            ].map((stat, i) => (
+              <div key={stat.label} className="flex items-center">
+                {i > 0 && (
+                  <div style={{ width: '1px', height: '30px', background: 'rgba(201,168,76,0.3)', flexShrink: 0 }} />
+                )}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', padding: i === 0 ? '0 18px 0 0' : '0 18px' }}>
+                  <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(22px, 2.4vw, 32px)', fontWeight: 300, color: '#FFFFFF', lineHeight: 1 }}>
+                    {stat.num}
                   </span>
-                </Button>
-                <Button
-                  variant="outline"
-                  size="md"
-                  onClick={() => scrollToSection('services')}
-                >
-                  Conheça os Tratamentos
-                </Button>
-              </div>
-
-              {/* Stats */}
-              <div className="flex items-center gap-6 sm:gap-12 border-t border-white/10 pt-8">
-                <div>
-                  <span className="block text-3xl font-heading text-white">12+</span>
-                  <span className="text-xs uppercase tracking-wider text-text-secondary">Anos de Experiência</span>
-                </div>
-                <div className="w-px h-10 bg-gold/30"></div>
-                <div>
-                  <span className="block text-3xl font-heading text-white">5k+</span>
-                  <span className="text-xs uppercase tracking-wider text-text-secondary">Pacientes</span>
-                </div>
-                <div className="w-px h-10 bg-gold/30 hidden sm:block"></div>
-                <div className="hidden sm:block">
-                  <span className="block text-3xl font-heading text-white">98%</span>
-                  <span className="text-xs uppercase tracking-wider text-text-secondary">Satisfação</span>
+                  <span style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '9px', letterSpacing: '0.14em', textTransform: 'uppercase', color: '#8A9AB0' }}>
+                    {stat.label}
+                  </span>
                 </div>
               </div>
-            </div>
+            ))}
           </motion.div>
 
-          {/* Coluna Direita: Imagem Placeholder (Pois a geração falhou) */}
+          {/* Botões */}
           <motion.div
-            className="hidden lg:block h-screen relative"
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
+            className="flex flex-col sm:flex-row flex-wrap"
+            style={{ gap: '12px' }}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.85, ease: EASE }}
           >
-            {/* Máscara e Imagem */}
-            <div className="absolute inset-y-0 right-0 w-full h-full bg-gradient-to-b from-primary-light to-primary overflow-hidden">
-              {/* Placeholder Visual Elegante */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center opacity-30">
-                <span className="font-heading text-9xl text-white/10 rotate-90 whitespace-nowrap">DR. RODRIGO</span>
-              </div>
-
-              {/* Placeholder para Foto Real */}
-              <div className="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent opacity-80 z-10"></div>
-              <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-primary opacity-90 z-10"></div>
-
-              {/* Linha Dourada Lateral */}
-              <div className="absolute left-0 top-1/4 bottom-1/4 w-[2px] bg-gradient-to-b from-transparent via-gold to-transparent z-20"></div>
-            </div>
+            <HeroButton gold onClick={() => scrollToSection('contact')} label="Agendar Consulta" icon={<ArrowRight size={13} />} />
+            <HeroButton onClick={() => scrollToSection('services')} label="Conhecer Tratamentos" />
           </motion.div>
 
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer z-20"
+      <motion.button
+        className="absolute bottom-5 left-1/2 border-none bg-transparent cursor-pointer flex flex-col items-center gap-2 z-40"
+        style={{ transform: 'translateX(-50%)' }}
         onClick={() => scrollToSection('about')}
-        animate={{ y: [0, 8, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 1, 1, 0.4, 1], y: [0, 0, 7, 7, 0] }}
+        transition={{ duration: 3, delay: 2, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <span className="text-[10px] uppercase tracking-[0.3em] text-white/50">Scroll</span>
-        <div className="w-px h-12 bg-gradient-to-b from-gold to-transparent"></div>
-      </motion.div>
+        <span style={{ fontFamily: 'Montserrat', fontSize: '9px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#8A9AB0' }}>
+          Scroll
+        </span>
+        <div style={{ width: '1px', height: '30px', background: 'linear-gradient(to bottom, rgba(201,168,76,0.6), transparent)' }} />
+      </motion.button>
     </section>
   );
 };
+
+// ── Botão Hero ───────────────────────────────────────────────────────────────
+interface HeroButtonProps {
+  gold?: boolean;
+  onClick: () => void;
+  label: string;
+  icon?: React.ReactNode;
+}
+
+const HeroButton = ({ gold = false, onClick, label, icon }: HeroButtonProps) => (
+  <button
+    onClick={onClick}
+    className="w-full sm:w-auto"
+    style={{
+      border: gold ? '1.5px solid #C9A84C' : '1.5px solid rgba(255,255,255,0.25)',
+      background: 'transparent',
+      color: gold ? '#C9A84C' : 'rgba(255,255,255,0.75)',
+      fontFamily: 'Montserrat, sans-serif',
+      fontSize: '11px',
+      letterSpacing: '0.22em',
+      textTransform: 'uppercase',
+      padding: '13px 26px',
+      borderRadius: '2px',
+      minHeight: '46px',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '10px',
+      transition: 'all 0.28s ease',
+      whiteSpace: 'nowrap',
+    }}
+    onMouseEnter={e => {
+      const t = e.currentTarget;
+      if (gold) { t.style.background = '#C9A84C'; t.style.color = '#0A2A43'; }
+      else { t.style.borderColor = 'rgba(255,255,255,0.7)'; t.style.color = '#FFFFFF'; }
+    }}
+    onMouseLeave={e => {
+      const t = e.currentTarget;
+      t.style.background = 'transparent';
+      t.style.color = gold ? '#C9A84C' : 'rgba(255,255,255,0.75)';
+      t.style.borderColor = gold ? '#C9A84C' : 'rgba(255,255,255,0.25)';
+    }}
+  >
+    {label}{icon}
+  </button>
+);

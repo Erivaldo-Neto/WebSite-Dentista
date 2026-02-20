@@ -51,9 +51,7 @@ export const Header = () => {
             <h1 className="text-2xl md:text-3xl font-heading text-white tracking-wide group-hover:text-gold transition-colors duration-300">
               Dr. Rodrigo Silva
             </h1>
-            <span className="text-[10px] uppercase tracking-[0.2em] text-gold mt-1">
-              CRO-SP 12345
-            </span>
+           
           </div>
 
           {/* Desktop Nav */}
