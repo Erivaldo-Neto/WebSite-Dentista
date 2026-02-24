@@ -16,6 +16,7 @@ export default {
         gold: {
           DEFAULT: '#C9A84C',  // Dourado envelhecido principal
           light: '#D4AF37',    // Dourado polido para hover
+          bright: '#E9C45C',   // Dourado mais claro solicitado (rgb 233 196 92)
           dark: '#B8963E',     // Dourado escuro para sombras
           muted: '#A08030',    // Dourado fosco para textos secundários
         },

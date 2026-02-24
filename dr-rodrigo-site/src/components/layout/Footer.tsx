@@ -28,27 +28,27 @@ export const Footer = () => {
               Odontologia de precisão com estética refinada e cuidado humano.
             </p>
             <div className="flex space-x-4">
-              <a 
-                href="https://instagram.com" 
-                target="_blank" 
+              <a
+                href="https://instagram.com"
+                target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-gold transition-colors"
+                className="hover:text-gold-bright transition-colors"
               >
                 <Instagram size={24} />
               </a>
-              <a 
-                href="https://facebook.com" 
-                target="_blank" 
+              <a
+                href="https://facebook.com"
+                target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-gold transition-colors"
+                className="hover:text-gold-bright transition-colors"
               >
                 <Facebook size={24} />
               </a>
-              <a 
-                href="https://linkedin.com" 
-                target="_blank" 
+              <a
+                href="https://linkedin.com"
+                target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-gold transition-colors"
+                className="hover:text-gold-bright transition-colors"
               >
                 <Linkedin size={24} />
               </a>
@@ -61,7 +61,7 @@ export const Footer = () => {
             </h4>
             <ul className="space-y-2">
               {specialties.map((specialty) => (
-                <li key={specialty} className="text-white/80 text-sm hover:text-gold transition-colors cursor-pointer">
+                <li key={specialty} className="text-white/80 text-sm hover:text-gold-bright transition-colors cursor-pointer">
                   {specialty}
                 </li>
               ))}
@@ -75,7 +75,7 @@ export const Footer = () => {
             <ul className="space-y-3">
               {cities.map((city) => (
                 <li key={city} className="flex items-start space-x-2 text-white/80 text-sm">
-                  <MapPin size={16} className="mt-0.5 flex-shrink-0" />
+                  <MapPin size={16} className="mt-0.5 flex-shrink-0 text-gold-bright" />
                   <span>{city}</span>
                 </li>
               ))}
@@ -87,21 +87,16 @@ export const Footer = () => {
               Contato
             </h4>
             <ul className="space-y-3">
+
               <li className="flex items-center space-x-2 text-white/80 text-sm">
-                <Phone size={16} />
-                <a href="tel:+5511987654321" className="hover:text-gold transition-colors">
-                  +55 11 98765-4321
-                </a>
-              </li>
-              <li className="flex items-center space-x-2 text-white/80 text-sm">
-                <Mail size={16} />
-                <a href="mailto:contato@drrodrigosilva.com.br" className="hover:text-gold transition-colors">
+                <Mail size={16} className="text-gold-bright" />
+                <a href="mailto:contato@drrodrigosilva.com.br" className="hover:text-gold-bright transition-colors">
                   contato@drrodrigosilva.com.br
                 </a>
               </li>
             </ul>
             <div className="mt-6">
-              <p className="text-white/60 text-xs">
+              <p className="text-white/60 text-xs text-gold-bright/60">
                 CRO-SP 12345
               </p>
             </div>
@@ -113,10 +108,10 @@ export const Footer = () => {
             © {new Date().getFullYear()} Dr. Rodrigo Silva. Todos os direitos reservados.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="text-white/60 hover:text-gold text-sm transition-colors">
+            <a href="#" className="text-white/60 hover:text-gold-bright text-sm transition-colors">
               Política de Privacidade
             </a>
-            <a href="#" className="text-white/60 hover:text-gold text-sm transition-colors">
+            <a href="#" className="text-white/60 hover:text-gold-bright text-sm transition-colors">
               Termos de Uso
             </a>
           </div>

@@ -1,112 +1,148 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m } from 'framer-motion';
+
+// Imports das imagens dos assets
+import recepcaoImg from '../../assets/images/recepção.png';
+import salaEsperaImg from '../../assets/images/sala-de-espera.jpeg';
+import salaEsterilImg from '../../assets/images/sala-de-esterilização.png';
+import salaAtendImg from '../../assets/images/sala-de-atendimento.png';
 
 export const Office = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Placeholders elegantes para quando não há imagens reais
-  const slides = [
+  const images = [
     {
-      id: 1,
-      title: "Recepção",
-      color: "from-[#0A2A43] to-[#051520]",
-      icon: "🏛️"
+      src: recepcaoImg,
+      label: 'Recepção',
+      description: 'Ambiente acolhedor que transmite confiança desde o primeiro momento.'
     },
     {
-      id: 2,
-      title: "Sala de Atendimento",
-      color: "from-[#0D2D45] to-[#0A2A43]",
-      icon: "💺"
+      src: salaEsperaImg,
+      label: 'Sala de Espera',
+      description: 'Conforto e serenidade enquanto você aguarda o seu atendimento.'
     },
     {
-      id: 3,
-      title: "Esterilização",
-      color: "from-[#051520] to-[#0D2D45]",
-      icon: "✨"
+      src: salaEsterilImg,
+      label: 'Esterilização',
+      description: 'Protocolos rigorosos de biossegurança para a sua total tranquilidade.'
     },
     {
-      id: 4,
-      title: "Área de Espera",
-      color: "from-[#0A2A43] to-[#051520]",
-      icon: "🛋️"
+      src: salaAtendImg,
+      label: 'Sala de Atendimento',
+      description: 'Tecnologia de ponta em um ambiente pensado para o seu conforto.'
     }
   ];
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % slides.length);
+      setActiveIndex((prev) => (prev + 1) % images.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [slides.length]);
+  }, [activeIndex, images.length]);
 
   return (
-    <section id="office" className="relative bg-primary py-0">
-      {/* Header Fixo sobreposto */}
-      <div className="absolute top-0 left-0 right-0 z-20 pt-20 pb-12 text-center pointer-events-none">
-        <motion.span
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="block text-gold text-xs tracking-[0.3em] uppercase mb-4"
-        >
+    <section id="office" className="bg-[#0A2A43] overflow-hidden">
+      {/* ─── TÍTULO DA SEÇÃO (topo) ─────────────────────────────────── */}
+      <div className="text-center pt-10 pb-8 md:pt-[64px] md:pb-[48px] px-6">
+        <span className="block font-sans text-[11px] uppercase tracking-[0.3em] text-gold-bright mb-4">
           Nossa Estrutura
-        </motion.span>
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="text-white text-4xl md:text-5xl font-heading font-light"
-        >
+        </span>
+        <h2 className="text-white font-heading font-normal leading-tight text-[32px] md:text-[52px]">
           O Consultório
-        </motion.h2>
+        </h2>
+        <div
+          className="h-[1px] w-[48px] bg-gold-bright opacity-50 mx-auto mt-4"
+        />
       </div>
 
-      {/* Carrossel */}
+      {/* ─── CARROSSEL — CONTAINER PRINCIPAL ────────────────────────── */}
       <div className="relative w-full h-[60vh] md:h-[85vh] overflow-hidden">
-        <AnimatePresence mode="popLayout">
-          <motion.div
-            key={activeIndex}
-            className={`absolute inset-0 bg-gradient-to-br ${slides[activeIndex].color}`}
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 2.5, ease: [0.43, 0.13, 0.23, 0.96] }}
+
+        {/* Camada 1 — As imagens empilhadas com cross-fade */}
+        {images.map((img, i) => (
+          <m.div
+            key={i}
+            className="absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: activeIndex === i ? 1 : 0 }}
+            transition={{ duration: 2, ease: [0.43, 0.13, 0.23, 0.96] }}
           >
-            {/* Elemento Placeholder Visual */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-10">
-              <span className="text-9xl filter blur-sm">{slides[activeIndex].icon}</span>
-            </div>
+            <img
+              src={img.src}
+              alt={img.label}
+              className="w-full h-full object-cover object-center"
+              style={{ filter: 'brightness(0.8) contrast(1.05)' }}
+            />
+          </m.div>
+        ))}
 
-            {/* Vinheta */}
-            <div className="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-primary/50 opacity-80" />
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-transparent to-primary/80 opacity-60" />
+        {/* Camada 2 — Overlay gradiente cinematográfico */}
+        <div
+          className="absolute inset-0 pointer-events-none z-10"
+          style={{
+            background: `
+              linear-gradient(to top,
+                rgba(0,0,0,0.75) 0%,
+                rgba(0,0,0,0.35) 35%,
+                transparent 65%
+              ),
+              linear-gradient(to bottom,
+                rgba(10,42,67,0.5) 0%,
+                transparent 30%
+              ),
+              linear-gradient(to right,
+                rgba(0,0,0,0.25) 0%,
+                transparent 25%,
+                transparent 75%,
+                rgba(0,0,0,0.25) 100%
+              )
+            `
+          }}
+        />
 
-            {/* Título da Imagem Atual */}
-            <div className="absolute bottom-32 left-0 right-0 text-center z-10 px-6">
-              <motion.h3
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 1 }}
-                className="text-2xl md:text-3xl font-heading text-white/90 italic"
-              >
-                {slides[activeIndex].title}
-              </motion.h3>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Indicadores de Progresso */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-4 z-30">
-          {slides.map((_, i) => (
-            <div
+        {/* Camada 3 — Texto que muda conforme a imagem */}
+        <div className="absolute inset-0 z-20 pointer-events-none">
+          {images.map((img, i) => (
+            <m.div
               key={i}
-              className="relative h-[2px] cursor-pointer transition-all duration-500 overflow-hidden bg-white/20"
-              style={{ width: activeIndex === i ? '3rem' : '1rem' }}
-              onClick={() => setActiveIndex(i)}
+              className="absolute bottom-6 left-6 md:bottom-16 md:left-16"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{
+                opacity: activeIndex === i ? 1 : 0,
+                y: activeIndex === i ? 0 : 20
+              }}
+              transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
             >
-              <div
-                className={`absolute inset-0 bg-gold transition-all duration-500 ${activeIndex === i ? 'w-full' : 'w-0'}`}
-              />
-            </div>
+              {/* Label do ambiente */}
+              <span className="block font-sans text-[11px] uppercase tracking-[0.3em] text-gold-bright mb-2.5">
+                {img.label}
+              </span>
+
+              {/* Descrição curta */}
+              <p className="font-heading font-light text-white text-[22px] md:text-[36px] max-w-[85%] md:max-w-[500px] leading-[1.3] text-shadow-sm">
+                {img.description}
+              </p>
+            </m.div>
+          ))}
+        </div>
+
+        {/* Camada 4 — Indicadores de progresso (linhas douradas) */}
+        <div className="absolute bottom-8 right-6 md:right-16 flex gap-3 items-center z-30">
+          {images.map((_, i) => (
+            <m.div
+              key={i}
+              onClick={(e) => {
+                // Previne borbulhamento para não interferir em outros eventos se houver
+                e.stopPropagation();
+                setActiveIndex(i);
+              }}
+              className="cursor-pointer h-[1px] bg-gold-bright pointer-events-auto"
+              animate={{
+                width: activeIndex === i ? '48px' : '16px',
+                opacity: activeIndex === i ? 1 : 0.35
+              }}
+              transition={{ duration: 0.4, ease: 'easeOut' }}
+            />
           ))}
         </div>
       </div>

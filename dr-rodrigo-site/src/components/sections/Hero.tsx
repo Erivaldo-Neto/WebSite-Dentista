@@ -1,9 +1,12 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import rodrigoImg from '../../assets/images/rodrigo-HeroSection.webp';
-import heroBg from '../../assets/images/background-herosection.webp';
+import { Button } from '../ui/Button';
 
 const EASE = [0.25, 0.1, 0.25, 1] as const;
+
+// Caminhos absolutos para a pasta /public/images
+const rodrigoImg = '/images/rodrigo-HeroSection.webp';
+const heroBg = '/images/background-herosection.webp';
 
 export const Hero = () => {
   const scrollToSection = (id: string) => {
@@ -19,12 +22,13 @@ export const Hero = () => {
     >
 
       {/* ─── FUNDO: consultório ─────────────────────────────────── */}
-      <motion.img
+      <m.img
         src={heroBg}
         alt=""
         aria-hidden="true"
         fetchPriority="high"
         decoding="async"
+        loading="eager"
         className="absolute inset-0 w-full h-full object-cover z-0"
         style={{ objectPosition: 'center 30%' }}
         initial={{ opacity: 0, scale: 1.04 }}
@@ -43,12 +47,12 @@ export const Hero = () => {
           ].join(', '),
         }}
       />
-      {/* Mobile: escurece fortemente a metade inferior (texto) */}
+      {/* Mobile: escurece fortemente a parte inferior para dar leitura ao texto */}
       <div
-        className="absolute inset-0 z-10 pointer-events-none md:hidden"
+        className="absolute inset-0 z-20 pointer-events-none md:hidden"
         style={{
           background:
-            'linear-gradient(to bottom, rgba(10,42,67,0.45) 0%, rgba(10,42,67,0.15) 28%, rgba(10,42,67,0.75) 55%, #0A2A43 75%)',
+            'linear-gradient(to top, #0A2A43 45%, rgba(10,42,67,0.9) 60%, rgba(10,42,67,0.4) 80%, transparent 100%)',
         }}
       />
 
@@ -68,23 +72,24 @@ export const Hero = () => {
       />
 
       {/* ─── DR. RODRIGO — MOBILE ────────────────────────────────────
-          Img puro (sem Framer Motion) → transform: translateX(-50%)
-          funciona sem conflito.
-          Centralizado horizontalmente, ancorado no topo (cabeça visível).
+          Posicionado mais ao topo e com altura reduzida para não bater no texto
       ──────────────────────────────────────────────────────────── */}
       <img
         src={rodrigoImg}
         alt="Dr. Rodrigo Silva"
         decoding="async"
-        className="absolute z-30 md:hidden"
+        loading="eager"
+        fetchPriority="high"
+        className="absolute z-10 md:hidden"
         style={{
-          top: '58px',            /* logo abaixo da navbar */
+          top: '40px',
           left: '50%',
           transform: 'translateX(-50%)',
-          height: '54%',          /* ligeiramente maior que antes */
+          height: '48%',
           width: 'auto',
           objectFit: 'contain',
           objectPosition: 'top center',
+          filter: 'drop-shadow(0 0 20px rgba(0,0,0,0.3))'
         }}
       />
 
@@ -93,7 +98,7 @@ export const Hero = () => {
           Flex centraliza o Rodrigo dentro dessa metade.
           Assim ele fica no meio da área direita, não colado no canto.
       ──────────────────────────────────────────────────────────── */}
-      <motion.div
+      <m.div
         className="absolute z-30 hidden md:flex items-end justify-center"
         style={{ left: '48%', right: 0, top: 0, bottom: 0 }}
         initial={{ opacity: 0, x: 30 }}
@@ -105,6 +110,7 @@ export const Hero = () => {
           alt="Dr. Rodrigo Silva"
           fetchPriority="high"
           decoding="async"
+          loading="eager"
           style={{
             height: '94vh',       /* ligeiramente maior */
             width: 'auto',
@@ -112,7 +118,7 @@ export const Hero = () => {
             objectPosition: 'bottom center',
           }}
         />
-      </motion.div>
+      </m.div>
 
 
       {/* ─── CONTEÚDO DE TEXTO ──────────────────────────────────── */}
@@ -123,44 +129,44 @@ export const Hero = () => {
           paddingRight: 'clamp(20px, 5vw, 48px)',
         }}
       >
-        <div className="flex flex-col w-full max-w-xl md:mt-[6vh]">
+        <div className="flex flex-col w-full max-w-xl">
 
           {/* Título */}
-          <motion.h1
+          <m.h1
+            className="text-white text-shadow-img"
             style={{
               fontFamily: "'Cormorant Garamond', serif",
-              fontWeight: 300,
+              fontWeight: 400,
               fontSize: 'clamp(32px, 4.5vw, 64px)',
               lineHeight: 1.1,
               maxWidth: '520px',
               marginBottom: '16px',
-              color: '#FFFFFF',
             }}
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
           >
             Odontologia de <br />
-            <span style={{ fontStyle: 'italic', color: '#C9A84C' }}>Excelência</span>{' '}
+            <span style={{ fontStyle: 'italic', color: '#E9C45C', fontWeight: 500 }}>Excelência</span>{' '}
             &amp; Arte.
-          </motion.h1>
+          </m.h1>
 
           {/* Linha dourada */}
-          <motion.div
-            style={{ width: '48px', height: '1px', background: '#C9A84C', opacity: 0.4, marginBottom: '16px' }}
+          <m.div
+            style={{ width: '48px', height: '1px', background: '#E9C45C', opacity: 0.6, marginBottom: '16px' }}
             initial={{ opacity: 0, scaleX: 0 }}
-            animate={{ opacity: 0.4, scaleX: 1 }}
+            animate={{ opacity: 0.6, scaleX: 1 }}
             transition={{ duration: 0.6, delay: 0.5, ease: EASE }}
           />
 
           {/* Subtítulo */}
-          <motion.p
+          <m.p
+            className="text-shadow-img text-white/90"
             style={{
               fontFamily: 'Montserrat, sans-serif',
-              fontWeight: 300,
-              fontSize: 'clamp(13px, 1.3vw, 15px)',
+              fontWeight: 400,
+              fontSize: 'clamp(14px, 1.3vw, 15px)',
               lineHeight: 1.7,
-              color: '#8A9AB0',
               maxWidth: '390px',
               marginBottom: '28px',
             }}
@@ -170,11 +176,11 @@ export const Hero = () => {
           >
             Experiência premium em reabilitação oral e estética do sorriso.
             Tecnologia de ponta, conforto absoluto e resultados naturais.
-          </motion.p>
+          </m.p>
 
           {/* Estatísticas */}
-          <motion.div
-            className="flex items-center mb-7"
+          <m.div
+            className="flex items-center mb-8"
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7, ease: EASE }}
@@ -186,96 +192,46 @@ export const Hero = () => {
             ].map((stat, i) => (
               <div key={stat.label} className="flex items-center">
                 {i > 0 && (
-                  <div style={{ width: '1px', height: '30px', background: 'rgba(201,168,76,0.3)', flexShrink: 0 }} />
+                  <div style={{ width: '1px', height: '30px', background: 'rgba(201,168,76,0.35)', flexShrink: 0 }} />
                 )}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', padding: i === 0 ? '0 18px 0 0' : '0 18px' }}>
-                  <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(22px, 2.4vw, 32px)', fontWeight: 300, color: '#FFFFFF', lineHeight: 1 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', padding: i === 0 ? '0 18px 0 0' : '0 18px' }}>
+                  <span className="text-white text-shadow-img" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(24px, 2.4vw, 34px)', fontWeight: 500, lineHeight: 1 }}>
                     {stat.num}
                   </span>
-                  <span style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '9px', letterSpacing: '0.14em', textTransform: 'uppercase', color: '#8A9AB0' }}>
+                  <span className="text-shadow-img text-white/80" style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '10px', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase' }}>
                     {stat.label}
                   </span>
                 </div>
               </div>
             ))}
-          </motion.div>
+          </m.div>
 
           {/* Botões */}
-          <motion.div
-            className="flex flex-col sm:flex-row flex-wrap"
-            style={{ gap: '12px' }}
+          <m.div
+            className="flex flex-col sm:flex-row flex-wrap gap-4"
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.85, ease: EASE }}
           >
-            <HeroButton gold onClick={() => scrollToSection('contact')} label="Agendar Consulta" icon={<ArrowRight size={13} />} />
-            <HeroButton onClick={() => scrollToSection('services')} label="Conhecer Tratamentos" />
-          </motion.div>
+            <Button
+              variant="primary"
+              onClick={() => scrollToSection('contact')}
+              className="w-full sm:w-auto"
+            >
+              Agendar Consulta <ArrowRight size={14} />
+            </Button>
+
+            <Button
+              variant="secondary"
+              onClick={() => scrollToSection('services')}
+              className="w-full sm:w-auto"
+            >
+              Conhecer Tratamentos
+            </Button>
+          </m.div>
 
         </div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.button
-        className="absolute bottom-5 left-1/2 border-none bg-transparent cursor-pointer flex flex-col items-center gap-2 z-40"
-        style={{ transform: 'translateX(-50%)' }}
-        onClick={() => scrollToSection('about')}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0, 1, 1, 0.4, 1], y: [0, 0, 7, 7, 0] }}
-        transition={{ duration: 3, delay: 2, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        <span style={{ fontFamily: 'Montserrat', fontSize: '9px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#8A9AB0' }}>
-          Scroll
-        </span>
-        <div style={{ width: '1px', height: '30px', background: 'linear-gradient(to bottom, rgba(201,168,76,0.6), transparent)' }} />
-      </motion.button>
     </section>
   );
 };
-
-// ── Botão Hero ───────────────────────────────────────────────────────────────
-interface HeroButtonProps {
-  gold?: boolean;
-  onClick: () => void;
-  label: string;
-  icon?: React.ReactNode;
-}
-
-const HeroButton = ({ gold = false, onClick, label, icon }: HeroButtonProps) => (
-  <button
-    onClick={onClick}
-    className="w-full sm:w-auto"
-    style={{
-      border: gold ? '1.5px solid #C9A84C' : '1.5px solid rgba(255,255,255,0.25)',
-      background: 'transparent',
-      color: gold ? '#C9A84C' : 'rgba(255,255,255,0.75)',
-      fontFamily: 'Montserrat, sans-serif',
-      fontSize: '11px',
-      letterSpacing: '0.22em',
-      textTransform: 'uppercase',
-      padding: '13px 26px',
-      borderRadius: '2px',
-      minHeight: '46px',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '10px',
-      transition: 'all 0.28s ease',
-      whiteSpace: 'nowrap',
-    }}
-    onMouseEnter={e => {
-      const t = e.currentTarget;
-      if (gold) { t.style.background = '#C9A84C'; t.style.color = '#0A2A43'; }
-      else { t.style.borderColor = 'rgba(255,255,255,0.7)'; t.style.color = '#FFFFFF'; }
-    }}
-    onMouseLeave={e => {
-      const t = e.currentTarget;
-      t.style.background = 'transparent';
-      t.style.color = gold ? '#C9A84C' : 'rgba(255,255,255,0.75)';
-      t.style.borderColor = gold ? '#C9A84C' : 'rgba(255,255,255,0.25)';
-    }}
-  >
-    {label}{icon}
-  </button>
-);

@@ -17,7 +17,7 @@ export const services: Service[] = [
   {
     id: 'ortodontia',
     title: 'Ortodontia',
-    headline: 'O caminho para o sorriso que você sempre quis',
+    headline: 'O caminho para o **sorriso** que você sempre quis',
     description: 'Tratamentos ortodônticos personalizados com aparelhos fixos, móveis ou invisíveis. Tecnologia de ponta para alinhar seus dentes com conforto e resultados previsíveis.',
     benefits: [
       'Diagnóstico digital 3D completo',
@@ -26,9 +26,9 @@ export const services: Service[] = [
       'Resultados duradouros e naturais'
     ],
     images: [
-      '/images/ortodontia-1.jpg',
-      '/images/ortodontia-2.jpg',
-      '/images/ortodontia-3.jpg'
+      '/images/ortodontia-1.webp',
+      '/images/ortodontia-2.webp',
+      '/images/ortodontia-3.webp'
     ],
     visualIdentity: {
       primaryColor: '#1A3F5C',
@@ -40,7 +40,7 @@ export const services: Service[] = [
   {
     id: 'preventiva',
     title: 'Odontologia Preventiva',
-    headline: 'Cuidado contínuo para um sorriso sempre saudável',
+    headline: 'Cuidado **contínuo** para um sorriso sempre **saudável**',
     description: 'Consultas preventivas, limpezas profissionais e orientações para manter sua saúde bucal impecável. Prevenção é o melhor tratamento.',
     benefits: [
       'Exames periódicos completos',
@@ -49,8 +49,8 @@ export const services: Service[] = [
       'Detecção precoce de problemas'
     ],
     images: [
-      '/images/preventiva-1.jpg',
-      '/images/preventiva-2.jpg'
+      '/images/preventiva-1.webp',
+      '/images/preventiva-2.webp'
     ],
     visualIdentity: {
       primaryColor: '#FFFFFF',
@@ -62,7 +62,7 @@ export const services: Service[] = [
   {
     id: 'estetica',
     title: 'Dentística Estética',
-    headline: 'Transforme seu sorriso com naturalidade e beleza',
+    headline: 'Transforme seu sorriso com **naturalidade** e **beleza**',
     description: 'Restaurações estéticas, clareamento dental, lentes de contato e facetas. Procedimentos que respeitam sua individualidade e realçam sua beleza natural.',
     benefits: [
       'Procedimentos minimamente invasivos',
@@ -71,13 +71,13 @@ export const services: Service[] = [
       'Planejamento digital do sorriso'
     ],
     images: [
-      '/images/estetica-1.jpg',
-      '/images/estetica-2.jpg',
-      '/images/estetica-3.jpg',
-      '/images/estetica-4.jpg'
+      '/images/estetica-1.webp',
+      '/images/estetica-2.webp',
+      '/images/estetica-3.webp',
+      '/images/estetica-4.webp'
     ],
     visualIdentity: {
-      primaryColor: '#F8F9FA',
+      primaryColor: '#FFFFFF',
       secondaryColor: '#FFD700',
       backgroundType: 'soft',
       graphicElements: ['light-rays', 'sparkles', 'soft-glow']
@@ -86,7 +86,7 @@ export const services: Service[] = [
   {
     id: 'endodontia',
     title: 'Endodontia',
-    headline: 'Tratamento de canal com precisão e conforto',
+    headline: 'Tratamento de canal com **precisão** e **conforto**',
     description: 'Procedimentos endodônticos realizados com tecnologia de ponta e máximo conforto. Salvamos dentes que pareciam perdidos.',
     benefits: [
       'Tecnologia de microscopia operatória',
@@ -95,8 +95,8 @@ export const services: Service[] = [
       'Alta taxa de sucesso'
     ],
     images: [
-      '/images/endodontia-1.jpg',
-      '/images/endodontia-2.jpg'
+      '/images/endodontia-1.webp',
+      '/images/endodontia-2.webp'
     ],
     visualIdentity: {
       primaryColor: '#0A2A43',
@@ -108,7 +108,7 @@ export const services: Service[] = [
   {
     id: 'harmonizacao',
     title: 'Harmonização Orofacial',
-    headline: 'Equilíbrio e naturalidade para o seu rosto',
+    headline: 'Equilíbrio e **naturalidade** para o seu rosto',
     description: 'Procedimentos estéticos faciais que valorizam sua beleza natural. Toxina botulínica, preenchimentos e bioestimuladores com técnica refinada.',
     benefits: [
       'Avaliação facial completa',
@@ -117,9 +117,9 @@ export const services: Service[] = [
       'Protocolos personalizados'
     ],
     images: [
-      '/images/harmonizacao-1.jpg',
-      '/images/harmonizacao-2.jpg',
-      '/images/harmonizacao-3.jpg'
+      '/images/harmonizacao-1.webp',
+      '/images/harmonizacao-2.webp',
+      '/images/harmonizacao-3.webp'
     ],
     visualIdentity: {
       primaryColor: '#FFF5F5',
@@ -131,7 +131,7 @@ export const services: Service[] = [
   {
     id: 'implantes',
     title: 'Implantodontia',
-    headline: 'Reconstrua seu sorriso com segurança e durabilidade',
+    headline: 'Reconstrua seu sorriso com **segurança** e **durabilidade**',
     description: 'Implantes dentários de última geração, próteses fixas e reabilitações completas. Devolvemos função, estética e autoestima.',
     benefits: [
       'Planejamento 3D cirúrgico',
@@ -140,9 +140,9 @@ export const services: Service[] = [
       'Carga imediata quando possível'
     ],
     images: [
-      '/images/implantes-1.jpg',
-      '/images/implantes-2.jpg',
-      '/images/implantes-3.jpg'
+      '/images/implantes-1.webp',
+      '/images/implantes-2.webp',
+      '/images/implantes-3.webp'
     ],
     visualIdentity: {
       primaryColor: '#0A2A43',

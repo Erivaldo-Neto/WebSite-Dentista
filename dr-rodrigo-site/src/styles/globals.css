@@ -1,88 +1,469 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Inter:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════════════════════════
+   SISTEMA TIPOGRÁFICO GLOBAL
+═══════════════════════════════════════════════════════════════ */
+:root {
+  --font-display: 'Cormorant Garamond', 'Georgia', serif;
+  --font-body: 'Montserrat', 'Trebuchet MS', sans-serif;
+}
+
 @layer base {
   html {
     @apply scroll-smooth;
-    /* Evita scroll horizontal indesejado */
-    overflow-x: hidden;
-  }
-  
-  body {
-    @apply font-sans text-text-primary antialiased bg-surface-offwhite;
     overflow-x: hidden;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-heading text-primary font-normal;
+  body {
+    @apply antialiased bg-surface-offwhite;
+    font-family: var(--font-body);
+    font-weight: 500;
+    color: #2C3E50;
+    overflow-x: hidden;
+  }
+
+  /* Nível 1 — Títulos principais */
+  h1,
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    color: #0A2A43;
+  }
+
+  /* Nível 2 — Subtítulos e destaques */
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: #1A3F5C;
+  }
+
+  /* Corpo de texto */
+  p {
+    font-family: var(--font-body);
+    font-weight: 500;
+    line-height: 1.75;
   }
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   SISTEMA DE BOTÕES (Refatorado para Efeito de Luz Animada)
+═══════════════════════════════════════════════════════════════ */
 @layer components {
-  /* Utilitários Premium */
+
+  /* ── BOTÃO PRIMÁRIO (Dourado com Luz em tons de Ouro) ── */
+  .btn-primary {
+    --duration: 4s;
+    /* Acelerado para mais movimento */
+    --easing: ease-in-out;
+    /* Somente tons de Dourado para não fugir do contraste do texto branco */
+    --c-color-1: rgba(201, 168, 76, 0.8);
+    --c-color-2: rgba(184, 150, 62, 0.7);
+    --c-color-3: rgba(212, 175, 55, 0.6);
+    --c-color-4: rgba(166, 134, 51, 0.85);
+    --c-shadow: rgba(201, 168, 76, 0.4);
+    --c-shadow-inset-top: rgba(255, 255, 255, 0.2);
+    --c-shadow-inset-bottom: rgba(10, 42, 67, 0.15);
+    --c-radial-inner: #C9A84C;
+    --c-radial-outer: #A68633;
+    --c-color: #ffffff;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+    outline: none;
+    position: relative;
+    cursor: pointer;
+    border: none;
+    display: inline-table;
+    border-radius: 4px;
+    /* Mais premium que 24px */
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--c-color);
+    background: radial-gradient(circle,
+        var(--c-radial-inner),
+        var(--c-radial-outer) 80%);
+    box-shadow: 0 4px 14px var(--c-shadow);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+  }
+
+  .btn-primary:before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 4px;
+    box-shadow:
+      inset 0 1px 4px var(--c-shadow-inset-top),
+      inset 0 -1px 2px var(--c-shadow-inset-bottom);
+  }
+
+  .btn-primary .wrapper {
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    overflow: hidden;
+    border-radius: 4px;
+    min-width: 170px;
+    /* Aumentado */
+    padding: 16px 36px;
+    /* Aumentado */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .btn-primary .wrapper span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    z-index: 5;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-primary:hover {
+    --duration: 900ms;
+    /* Aceleração agressiva no hover */
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 16px 32px rgba(201, 168, 76, 0.5);
+  }
+
+  .btn-primary:active {
+    transform: scale(0.98);
+  }
+
+  .btn-primary .wrapper .circle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 80px;
+    /* Aumentado para cobrir mais área */
+    height: 80px;
+    /* Aumentado para cobrir mais área */
+    border-radius: 50%;
+    filter: blur(var(--blur, 15px));
+    background: var(--background, transparent);
+    transform: translate(var(--x, 0), var(--y, 0)) translateZ(0);
+    animation: var(--animation, none) var(--duration) var(--easing) infinite;
+    opacity: 0.7;
+  }
+
+  /* ── CORES DOS CÍRCULOS (Somente variações de Dourado/Ouro) ── */
+  .btn-primary .wrapper .circle.circle-1,
+  .btn-primary .wrapper .circle.circle-9,
+  .btn-primary .wrapper .circle.circle-10 {
+    --background: var(--c-color-4);
+  }
+
+  .btn-primary .wrapper .circle.circle-3,
+  .btn-primary .wrapper .circle.circle-4 {
+    --background: #d4af37;
+    /* Ouro Nobre */
+    --blur: 16px;
+  }
+
+  .btn-primary .wrapper .circle.circle-5,
+  .btn-primary .wrapper .circle.circle-6 {
+    --background: var(--c-color-3);
+    --blur: 20px;
+  }
+
+  .btn-primary .wrapper .circle.circle-2,
+  .btn-primary .wrapper .circle.circle-7,
+  .btn-primary .wrapper .circle.circle-8,
+  .btn-primary .wrapper .circle.circle-11,
+  .btn-primary .wrapper .circle.circle-12 {
+    --background: var(--c-color-1);
+    /* Dourado */
+    --blur: 14px;
+  }
+
+  /* Keyframes e Posicionamentos (Mantidos do Uiverse) */
+  .btn-primary .wrapper .circle.circle-1 {
+    --x: 0;
+    --y: -40px;
+    --animation: circle-1;
+  }
+
+  .btn-primary .wrapper .circle.circle-2 {
+    --x: 92px;
+    --y: 8px;
+    --animation: circle-2;
+  }
+
+  .btn-primary .wrapper .circle.circle-3 {
+    --x: -12px;
+    --y: -12px;
+    --animation: circle-3;
+  }
+
+  .btn-primary .wrapper .circle.circle-4 {
+    --x: 80px;
+    --y: -12px;
+    --animation: circle-4;
+  }
+
+  .btn-primary .wrapper .circle.circle-5 {
+    --x: 12px;
+    --y: -4px;
+    --animation: circle-5;
+  }
+
+  .btn-primary .wrapper .circle.circle-6 {
+    --x: 56px;
+    --y: 16px;
+    --animation: circle-6;
+  }
+
+  .btn-primary .wrapper .circle.circle-7 {
+    --x: 8px;
+    --y: 28px;
+    --animation: circle-7;
+  }
+
+  .btn-primary .wrapper .circle.circle-8 {
+    --x: 28px;
+    --y: -4px;
+    --animation: circle-8;
+  }
+
+  .btn-primary .wrapper .circle.circle-9 {
+    --x: 20px;
+    --y: -12px;
+    --animation: circle-9;
+  }
+
+  .btn-primary .wrapper .circle.circle-10 {
+    --x: 64px;
+    --y: 16px;
+    --animation: circle-10;
+  }
+
+  .btn-primary .wrapper .circle.circle-11 {
+    --x: 4px;
+    --y: 4px;
+    --animation: circle-11;
+  }
+
+  .btn-primary .wrapper .circle.circle-12 {
+    --blur: 14px;
+    --x: 52px;
+    --y: 4px;
+    --animation: circle-12;
+  }
+
+  @keyframes circle-1 {
+    33% {
+      transform: translate(0px, 16px) translateZ(0);
+    }
+
+    66% {
+      transform: translate(12px, 64px) translateZ(0);
+    }
+  }
+
+  @keyframes circle-2 {
+    33% {
+      transform: translate(80px, -10px) translateZ(0);
+    }
+
+    66% {
+      transform: translate(72px, -48px) translateZ(0);
+    }
+  }
+
+  @keyframes circle-3 {
+    33% {
+      transform: translate(20px, 12px) translateZ(0);
+    }
+
+    66% {
+      transform: translate(12px, 4px) translateZ(0);
+    }
+  }
+
+  @keyframes circle-4 {
+    33% {
+      transform: translate(76px, -12px) translateZ(0);
+    }
+
+    66% {
+      transform: translate(112px, -8px) translateZ(0);
+    }
+  }
+
+  @keyframes circle-5 {
+    33% {
+      transform: translate(84px, 28px) translateZ(0);
+    }
+
+    66% {
+      transform: translate(40px, -32px) translateZ(0);
+    }
+  }
+
+  @keyframes circle-6 {
+    33% {
+      transform: translate(28px, -16px) translateZ(0);
+    }
+
+    66% {
+      transform: translate(76px, -56px) translateZ(0);
+    }
+  }
+
+  @keyframes circle-7 {
+    33% {
+      transform: translate(8px, 28px) translateZ(0);
+    }
+
+    66% {
+      transform: translate(20px, -60px) translateZ(0);
+    }
+  }
+
+  @keyframes circle-8 {
+    33% {
+      transform: translate(32px, -4px) translateZ(0);
+    }
+
+    66% {
+      transform: translate(56px, -20px) translateZ(0);
+    }
+  }
+
+  @keyframes circle-9 {
+    33% {
+      transform: translate(20px, -12px) translateZ(0);
+    }
+
+    66% {
+      transform: translate(80px, -8px) translateZ(0);
+    }
+  }
+
+  @keyframes circle-10 {
+    33% {
+      transform: translate(68px, 20px) translateZ(0);
+    }
+
+    66% {
+      transform: translate(100px, 28px) translateZ(0);
+    }
+  }
+
+  @keyframes circle-11 {
+    33% {
+      transform: translate(4px, 4px) translateZ(0);
+    }
+
+    66% {
+      transform: translate(68px, 20px) translateZ(0);
+    }
+  }
+
+  @keyframes circle-12 {
+    33% {
+      transform: translate(56px, 0px) translateZ(0);
+    }
+
+    66% {
+      transform: translate(60px, -32px) translateZ(0);
+    }
+  }
+
+  /* ── BOTÃO SECUNDÁRIO (Contorno com Animação Dourada) ── */
+  .btn-secondary {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 36px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.9);
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, #C9A84C, transparent);
+    transition: left 0.5s ease;
+  }
+
+  .btn-secondary::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, #C9A84C, transparent);
+    transition: right 0.5s ease;
+  }
+
+  .btn-secondary:hover {
+    color: #C9A84C;
+    border-color: rgba(201, 168, 76, 0.5);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary:hover::before {
+    left: 100%;
+  }
+
+  .btn-secondary:hover::after {
+    right: 100%;
+  }
+
+  .btn-secondary:active {
+    transform: scale(0.98);
+  }
+
+  /* ── UTILITÁRIOS ── */
   .container-custom {
     @apply max-w-7xl mx-auto px-6 md:px-12 lg:px-16;
   }
-  
-  .glassmorphism {
-    @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-lg;
-  }
-  
-  .glassmorphism-dark {
-    @apply bg-primary/30 backdrop-blur-md border border-white/5 shadow-lg;
-  }
-  
-  /* Texturas de Background */
+
   .bg-noise {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
     background-repeat: repeat;
   }
-  
-  .bg-grid-white {
-    background-size: 40px 40px;
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  }
-  
-  .bg-grid-blue {
-    background-size: 40px 40px;
-    background-image: linear-gradient(to right, rgba(10, 42, 67, 0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(10, 42, 67, 0.03) 1px, transparent 1px);
-  }
-
-  /* Efeitos de Interação */
-  .hover-underline-gold {
-    @apply relative overflow-hidden;
-  }
-  
-  .hover-underline-gold::after {
-    content: '';
-    @apply absolute bottom-0 left-0 w-full h-[1px] bg-gold transform -translate-x-full transition-transform duration-300 ease-out;
-  }
-  
-  .hover-underline-gold:hover::after {
-    @apply translate-x-0;
-  }
-  
-  .btn-primary {
-    @apply px-8 py-3 bg-transparent border border-gold text-white font-sans text-sm tracking-widest uppercase transition-all duration-300 hover:bg-gold hover:text-white relative overflow-hidden;
-  }
-  
-  .btn-secondary {
-    @apply px-8 py-3 bg-transparent border border-white/30 text-white font-sans text-sm tracking-widest uppercase transition-all duration-300 hover:bg-white hover:text-primary;
-  }
 }
 
 @layer utilities {
-  .text-shadow-sm {
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  .text-shadow-img {
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
   }
-  
-  .animation-delay-200 { animation-delay: 200ms; }
-  .animation-delay-400 { animation-delay: 400ms; }
-  .animation-delay-600 { animation-delay: 600ms; }
-  .animation-delay-800 { animation-delay: 800ms; }
+
+  .text-shadow-sm {
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  }
 }

@@ -1,6 +1,5 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Award, Heart, Users, Sparkles } from 'lucide-react';
-import { Button } from '../ui/Button';
 
 export const About = () => {
   const values = [
@@ -27,7 +26,7 @@ export const About = () => {
   ];
 
   return (
-    <section id="about" className="relative py-24 lg:py-32 overflow-hidden bg-surface-offwhite">
+    <section id="about" className="relative py-24 lg:py-32 overflow-hidden bg-surface-white">
       {/* Background Elements */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         {/* Borda lateral dourada */}
@@ -46,7 +45,7 @@ export const About = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
           {/* Coluna Esquerda: Imagem */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -55,42 +54,42 @@ export const About = () => {
           >
             <div className="relative aspect-[4/5] w-full max-w-md mx-auto lg:mr-auto">
               {/* Moldura Decorativa */}
-              <div className="absolute -top-4 -left-4 w-full h-full border border-gold/30 rounded-sm"></div>
+              <div className="absolute -top-4 -left-4 w-full h-full border-2 border-gold/80 rounded-sm"></div>
               <div className="absolute -bottom-4 -right-4 w-full h-full bg-primary/5 rounded-sm"></div>
 
-              {/* Imagem Placeholder Elegante */}
+              {/* Imagem Real */}
               <div className="relative h-full w-full overflow-hidden rounded-sm bg-surface-white shadow-2xl group">
-                {/* Fundo Placeholder */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary-light to-primary opacity-90"></div>
+                <img
+                  src="/images/rodrigo-sobresection.webp"
+                  alt="Dr. Rodrigo Silva"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
 
-                {/* Silhouette / Texto Placeholder */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
-                  <div className="w-20 h-20 mb-6 rounded-full border border-gold/30 flex items-center justify-center">
-                    <span className="font-heading text-4xl text-gold">RS</span>
-                  </div>
-                  <span className="text-white/20 font-heading text-xl uppercase tracking-widest">Portrait</span>
-                </div>
+                {/* Overlay de Gradiente Suave */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A2A43]/40 to-transparent"></div>
 
                 {/* Efeito Hover */}
-                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Coluna Direita: Conteúdo */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.2 }}
           >
-            <h4 className="text-gold text-xs font-bold tracking-[0.2em] uppercase mb-4">Sobre o Doutor</h4>
+            <h4 className="text-gold text-xs font-semibold tracking-[0.2em] uppercase mb-4">Sobre o Doutor</h4>
 
-            <h2 className="text-4xl md:text-5xl font-heading font-normal text-primary mb-8 leading-tight">
-              A união perfecta entre técnica e <span className="italic text-gold">humanidade</span>.
+            <h2 className="text-4xl md:text-5xl font-heading font-normal text-[#0A2A43] mb-8 leading-tight">
+              A união perfeita entre técnica e <span className="italic text-gold">humanidade</span>.
             </h2>
 
-            <div className="space-y-6 text-text-secondary leading-relaxed font-sans font-light text-lg">
+            <div className="space-y-6 text-[#2C3E50] leading-relaxed font-sans font-normal text-lg">
               <p>
                 Com mais de uma década de experiência clínica, o Dr. Rodrigo Silva consolidou uma filosofia de trabalho onde cada tratamento é uma obra de arte única.
               </p>
@@ -99,14 +98,14 @@ export const About = () => {
                 Especialista em reabilitação oral e estética, sua abordagem integra as tecnologias mais avançadas da odontologia digital com um olhar artesanal e detalhista.
               </p>
 
-              <blockquote className="pl-6 border-l-2 border-gold py-2 my-8 text-primary font-heading text-2xl italic">
+              <blockquote className="pl-6 border-l-2 border-gold py-2 my-8 text-[#0A2A43] font-heading text-2xl italic">
                 "Não tratamos apenas dentes. Restauramos a confiança para sorrir sem reservas."
               </blockquote>
             </div>
 
             <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-8">
               {values.map((value, index) => (
-                <motion.div
+                <m.div
                   key={value.title}
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -114,21 +113,23 @@ export const About = () => {
                   transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
                   className="flex items-start gap-4"
                 >
-                  <div className="flex-shrink-0 mt-1">
-                    <value.icon className="text-gold" size={24} strokeWidth={1} />
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 rounded-full flex items-center justify-center bg-[#0A2A43] shadow-md">
+                      <value.icon className="text-gold-bright" size={24} strokeWidth={1.5} />
+                    </div>
                   </div>
                   <div>
-                    <h4 className="font-heading text-lg text-primary mb-1">
+                    <h4 className="font-sans font-semibold text-lg text-[#0A2A43] mb-1">
                       {value.title}
                     </h4>
-                    <p className="text-sm text-text-secondary font-light">
+                    <p className="text-sm text-[#5A7080] font-normal leading-snug">
                       {value.description}
                     </p>
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>
