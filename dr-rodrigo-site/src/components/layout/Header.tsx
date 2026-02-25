@@ -72,7 +72,7 @@ export const Header = () => {
             <ResponsiveImage
               baseName="images/logo-rodrigo"
               alt="Dr. Rodrigo Silva Logo"
-              className="absolute left-0 top-1/2 -translate-y-1/2 h-[150px] md:h-[280px] max-w-none w-auto transition-all duration-300 group-hover:scale-[1.03] pointer-events-none"
+              className="absolute left-0 top-1/2 -translate-y-1/2 h-[180px] md:h-[280px] max-w-none w-auto transition-all duration-300 group-hover:scale-[1.03] pointer-events-none"
               eager
             />
           </div>
@@ -97,11 +97,15 @@ export const Header = () => {
 
           {/* Mobile Toggle */}
           <button
-            className="lg:hidden text-white p-2 hover:text-gold transition-colors"
+            className="lg:hidden text-white p-2 hover:text-gold transition-colors focus:outline-none"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? <X strokeWidth={1} size={32} /> : <Menu strokeWidth={1} size={32} />}
+            {isMobileMenuOpen ? (
+              <X strokeWidth={1.5} size={32} className="text-white" />
+            ) : (
+              <Menu strokeWidth={1.5} size={32} className="text-white" />
+            )}
           </button>
         </div>
       </div>

@@ -24,9 +24,9 @@ export const Hero = () => {
       {/* ─── FUNDO: consultório ─────────────────────────────────── */}
       <m.div
         className="absolute inset-0 w-full h-full z-0 hero-background"
-        initial={shouldReduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.04 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: shouldReduceMotion ? 0 : 1.2, ease: EASE }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, ease: EASE }}
       >
         <ResponsiveImage
           baseName="images/background-herosection"
@@ -69,11 +69,12 @@ export const Hero = () => {
       <div
         className="absolute z-10 md:hidden rodrigo-image"
         style={{
-          top: '40px',
+          top: '20px',
           left: '50%',
-          transform: 'translateX(-50%)',
-          height: '48%',
-          filter: 'drop-shadow(0 0 20px rgba(0,0,0,0.3))'
+          transform: 'translateX(-50%) scale(1.3)',
+          height: '58%',
+          filter: 'drop-shadow(0 0 20px rgba(0,0,0,0.3))',
+          transformOrigin: 'top center'
         }}
       >
         <ResponsiveImage
@@ -119,7 +120,7 @@ export const Hero = () => {
             style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontWeight: 400,
-              fontSize: 'clamp(32px, 4.5vw, 64px)',
+              fontSize: 'clamp(42px, 5.5vw, 64px)',
               lineHeight: 1.1,
               maxWidth: '520px',
               marginBottom: '16px',
