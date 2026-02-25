@@ -23,17 +23,19 @@ export const Hero = () => {
 
       {/* ─── FUNDO: consultório ─────────────────────────────────── */}
       <m.div
-        className="absolute inset-0 w-full h-full z-0 hero-background"
+        className="absolute inset-0 w-full h-full z-0 hero-background flex items-center justify-center bg-[#0A2A43]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, ease: EASE }}
       >
-        <ResponsiveImage
-          baseName="images/background-herosection"
-          alt="Consultório Odontológico"
-          className="w-full h-full object-cover"
-          eager
-        />
+        <div className="w-full h-full md:scale-100 scale-[0.8] md:opacity-100 opacity-60">
+          <ResponsiveImage
+            baseName="images/background-herosection"
+            alt="Consultório Odontológico"
+            className="w-full h-full object-cover object-center"
+            eager
+          />
+        </div>
       </m.div>
 
       {/* ─── GRADIENTE BASE — escurece tuda a seção ─────────────── */}
