@@ -4,8 +4,17 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/',
   build: {
-    // Dividir chunks para carregamento paralelo
+    outDir: 'dist',
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info']
+      }
+    },
     rollupOptions: {
       output: {
         manualChunks: {
@@ -15,25 +24,13 @@ export default defineConfig({
         }
       }
     },
-    // Comprimir assets
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,  // Remove console.log em produção
-        drop_debugger: true,
-      }
-    },
-    // Threshold para avisos de chunk grande
     chunkSizeWarningLimit: 500,
+    assetsInlineLimit: 4096, // arquivos menores que 4kb viram base64 inline
   },
-  // Otimizar dependências no dev (reduz tempo de reload)
   optimizeDeps: {
     include: ['react', 'react-dom', 'framer-motion'],
   },
   server: {
-    // Hot reload mais rápido
-    hmr: { overlay: false },
-    // Menos trabalho de resolução
-    fs: { strict: false }
-  },
+    hmr: { overlay: false }
+  }
 })

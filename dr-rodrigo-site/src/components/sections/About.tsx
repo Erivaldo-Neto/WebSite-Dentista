@@ -1,7 +1,10 @@
 import { m } from 'framer-motion';
 import { Award, Heart, Users, Sparkles } from 'lucide-react';
+import { ResponsiveImage } from '../ui/ResponsiveImage';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 export const About = () => {
+  const shouldReduceMotion = useReducedMotion();
   const values = [
     {
       icon: Award,
@@ -46,10 +49,10 @@ export const About = () => {
 
           {/* Coluna Esquerda: Imagem */}
           <m.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={shouldReduceMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: shouldReduceMotion ? 0 : 1 }}
             className="relative"
           >
             <div className="relative aspect-[4/5] w-full max-w-md mx-auto lg:mr-auto">
@@ -59,11 +62,9 @@ export const About = () => {
 
               {/* Imagem Real */}
               <div className="relative h-full w-full overflow-hidden rounded-sm bg-surface-white shadow-2xl group">
-                <img
-                  src="/images/rodrigo-sobresection.webp"
+                <ResponsiveImage
+                  baseName="images/rodrigo-sobresection"
                   alt="Dr. Rodrigo Silva"
-                  loading="lazy"
-                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
 
@@ -78,10 +79,10 @@ export const About = () => {
 
           {/* Coluna Direita: Conteúdo */}
           <m.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={shouldReduceMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.2 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: shouldReduceMotion ? 0 : 1, delay: shouldReduceMotion ? 0 : 0.2 }}
           >
             <h4 className="text-gold text-xs font-semibold tracking-[0.2em] uppercase mb-4">Sobre o Doutor</h4>
 
@@ -107,10 +108,10 @@ export const About = () => {
               {values.map((value, index) => (
                 <m.div
                   key={value.title}
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.5, delay: shouldReduceMotion ? 0 : 0.4 + index * 0.1 }}
                   className="flex items-start gap-4"
                 >
                   <div className="flex-shrink-0">

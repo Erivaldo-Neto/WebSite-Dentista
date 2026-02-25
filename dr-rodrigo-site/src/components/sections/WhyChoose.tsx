@@ -1,7 +1,9 @@
 import { m } from 'framer-motion';
 import { Award, Heart, Sparkles, Shield, ArrowRight } from 'lucide-react';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 export const WhyChoose = () => {
+  const shouldReduceMotion = useReducedMotion();
   const reasons = [
     {
       icon: Award,
@@ -38,10 +40,10 @@ export const WhyChoose = () => {
           {/* Header Column */}
           <m.div
             className="lg:w-1/3"
-            initial={{ opacity: 0, x: -30 }}
+            initial={shouldReduceMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.8 }}
           >
             <span className="inline-block text-gold-bright text-xs font-semibold tracking-[0.3em] uppercase mb-6 text-shadow-sm">
               Diferenciais Exclusivos
@@ -77,10 +79,10 @@ export const WhyChoose = () => {
             {reasons.map((reason, index) => (
               <m.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.5, delay: shouldReduceMotion ? 0 : index * 0.1 }}
                 className="group relative p-8 rounded-sm bg-white/5 border border-white/10 hover:border-gold/30 hover:bg-white/10 transition-all duration-500"
               >
                 <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">

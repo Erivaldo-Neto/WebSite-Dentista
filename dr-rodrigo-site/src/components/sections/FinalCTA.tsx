@@ -1,8 +1,10 @@
 import { m } from 'framer-motion';
 import { Calendar, Phone, Mail, ArrowRight, MapPin } from 'lucide-react';
 import { Button } from '../ui/Button';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 export const FinalCTA = () => {
+  const shouldReduceMotion = useReducedMotion();
   return (
     <section id="contact" className="relative py-24 lg:py-32 overflow-hidden bg-primary">
       {/* Background Elements */}
@@ -20,10 +22,10 @@ export const FinalCTA = () => {
 
       <div className="container-custom relative z-10 text-center">
         <m.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.8 }}
           className="max-w-4xl mx-auto"
         >
           <span className="inline-block text-gold-bright text-xs font-semibold tracking-[0.3em] uppercase mb-6 text-shadow-sm">

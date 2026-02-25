@@ -1,8 +1,10 @@
 import { m } from 'framer-motion';
 import { Quote } from 'lucide-react';
 import { testimonials } from '../../data/testimonials';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 export const Testimonials = () => {
+  const shouldReduceMotion = useReducedMotion();
   return (
     <section id="testimonials" className="relative py-24 lg:py-32 overflow-hidden bg-[#0A2A43]">
       {/* Background Elements */}
@@ -19,10 +21,10 @@ export const Testimonials = () => {
 
       <div className="container-custom relative z-10">
         <m.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.8 }}
           className="text-center mb-16"
         >
           <span className="inline-block text-gold-bright text-xs font-semibold tracking-[0.3em] uppercase mb-4 text-shadow-sm">
@@ -42,10 +44,10 @@ export const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <m.div
               key={testimonial.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: shouldReduceMotion ? 0 : index * 0.15 }}
             >
               <div className="h-full p-8 rounded-sm bg-white/5 border border-white/5 backdrop-blur-sm hover:border-gold/20 transition-all duration-500 group flex flex-col">
                 <div className="mb-6">
@@ -81,10 +83,10 @@ export const Testimonials = () => {
         </div>
 
         <m.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: shouldReduceMotion ? 0 : 0.6 }}
           className="mt-16 flex flex-col items-center"
         >
           <div className="text-5xl font-heading font-medium text-white mb-2 text-shadow-img">4.9</div>

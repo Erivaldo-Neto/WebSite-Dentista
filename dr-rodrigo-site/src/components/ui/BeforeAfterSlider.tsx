@@ -65,6 +65,8 @@ export const BeforeAfterSlider = ({
                 alt={afterAlt}
                 className="absolute inset-0 w-full h-full object-cover"
                 draggable={false}
+                loading="lazy"
+                decoding="async"
             />
 
             {/* Imagem Antes (Overlay com clip-path) */}
@@ -77,6 +79,8 @@ export const BeforeAfterSlider = ({
                     alt={beforeAlt}
                     className="absolute inset-0 w-full h-full object-cover"
                     draggable={false}
+                    loading="lazy"
+                    decoding="async"
                 />
             </div>
 

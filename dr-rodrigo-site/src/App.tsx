@@ -1,7 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { LazyMotion, domAnimation } from 'framer-motion';
 import { Header } from './components/layout/Header';
-import { Footer } from './components/layout/Footer';
 import { Hero } from './components/sections/Hero';
 import { services } from './data/services';
 import './styles/globals.css';
@@ -14,6 +13,11 @@ const Locations = lazy(() => import('./components/sections/Locations').then(m =>
 const WhyChoose = lazy(() => import('./components/sections/WhyChoose').then(m => ({ default: m.WhyChoose })));
 const FinalCTA = lazy(() => import('./components/sections/FinalCTA').then(m => ({ default: m.FinalCTA })));
 const ServiceSection = lazy(() => import('./components/sections/ServiceSection').then(m => ({ default: m.ServiceSection })));
+const Footer = lazy(() => import('./components/layout/Footer').then(m => ({ default: m.Footer })));
+
+const SectionLoader = () => (
+  <div className="w-full bg-[#0A2A43]" style={{ minHeight: '100px' }} />
+);
 
 function App() {
   return (
@@ -24,7 +28,7 @@ function App() {
         <main>
           <Hero />
 
-          <Suspense fallback={<div className="h-96" />}>
+          <Suspense fallback={<SectionLoader />}>
             <About />
 
             <section id="services">
@@ -42,10 +46,9 @@ function App() {
             <Locations />
             <WhyChoose />
             <FinalCTA />
+            <Footer />
           </Suspense>
         </main>
-
-        <Footer />
       </div>
     </LazyMotion>
   );

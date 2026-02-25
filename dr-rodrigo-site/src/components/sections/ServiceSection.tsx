@@ -3,25 +3,27 @@ import { Check, ChevronRight } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Service } from '../../data/services';
 import { BeforeAfterSlider } from '../ui/BeforeAfterSlider';
+import { ResponsiveImage } from '../ui/ResponsiveImage';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 // Imagens para o slider de Ortodontia
-import antesOrtodontia from '../../assets/images/versao-antes-ortodontia.png';
-import depoisOrtodontia from '../../assets/images/versao-depois-ortodontia.png';
+const antesOrtodontia = '/images/versao-antes-ortodontia.webp';
+const depoisOrtodontia = '/images/versao-depois-ortodontia.webp';
 
 // Imagem para Preventiva
-import imagemPreventiva from '../../assets/images/rodrigo-Odontologia-preventivo.png';
+const imagemPreventiva = '/images/rodrigo-Odontologia-preventivo.webp';
 
 // Imagem para Dentística Estética
-import imagemEstetica from '../../assets/images/dentistica-estetica-section.jpg';
+const imagemEstetica = '/images/dentistica-estetica-section.webp';
 
 // Imagem para Endodontia
-import imagemEndodontia from '../../assets/images/Endodontia-section.png';
+const imagemEndodontia = '/images/Endodontia-section.webp';
 
 // Imagem para Harmonização Orofacial
-import imagemHarmonizacao from '../../assets/images/Harmonização-section.png';
+const imagemHarmonizacao = '/images/harmonizacao-section.webp';
 
 // Imagem para Implantodontia
-import imagemImplantes from '../../assets/images/Implante-section.png';
+const imagemImplantes = '/images/Implante-section.webp';
 
 interface ServiceSectionProps {
   service: Service;
@@ -30,6 +32,7 @@ interface ServiceSectionProps {
 
 export const ServiceSection = ({ service, index }: ServiceSectionProps) => {
   const isDark = index % 2 === 0;
+  const shouldReduceMotion = useReducedMotion();
   const isOrthodontia = service.id === 'ortodontia';
   const isPreventiva = service.id === 'preventiva';
   const isEstetica = service.id === 'estetica';
@@ -78,10 +81,10 @@ export const ServiceSection = ({ service, index }: ServiceSectionProps) => {
           {/* Coluna de Conteúdo */}
           <m.div
             className={index % 2 !== 0 ? 'lg:order-2' : ''}
-            initial={{ opacity: 0, x: isDark ? -30 : 30 }}
+            initial={shouldReduceMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: (index % 2 === 0 ? -30 : 30) }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.8 }}
           >
             <span className={`inline-block text-xs font-semibold tracking-[0.2em] uppercase mb-6 ${isDark ? 'text-gold-bright text-shadow-sm' : 'text-[#1A3F5C]'}`}>
               {service.title}
@@ -125,14 +128,14 @@ export const ServiceSection = ({ service, index }: ServiceSectionProps) => {
           {/* Coluna de Imagem */}
           <m.div
             className={`relative ${index % 2 !== 0 ? 'lg:order-1' : ''}`}
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={shouldReduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.8, delay: shouldReduceMotion ? 0 : 0.2 }}
           >
             <m.div
               className="relative rounded-sm overflow-hidden"
-              animate={{
+              animate={shouldReduceMotion ? {} : {
                 boxShadow: isOrthodontia
                   ? [
                     '0 0 0 1px rgba(201,168,76,0.5), 0 0 30px 4px rgba(201,168,76,0.3), 0 0 60px 8px rgba(201,168,76,0.15)',
@@ -156,18 +159,16 @@ export const ServiceSection = ({ service, index }: ServiceSectionProps) => {
                 />
               ) : (
                 <div className={`relative w-full group ${isPreventiva ? 'aspect-auto' : 'aspect-[4/3]'}`}>
-                  <img
-                    src={
-                      isPreventiva ? imagemPreventiva :
-                        isEstetica ? imagemEstetica :
-                          isEndodontia ? imagemEndodontia :
-                            isHarmonizacao ? imagemHarmonizacao :
-                              isImplantes ? imagemImplantes :
-                                service.images[0]
+                  <ResponsiveImage
+                    baseName={
+                      isPreventiva ? "images/rodrigo-Odontologia-preventivo" :
+                        isEstetica ? "images/dentistica-estetica-section" :
+                          isEndodontia ? "images/Endodontia-section" :
+                            isHarmonizacao ? "images/harmonizacao-section" :
+                              isImplantes ? "images/Implante-section" :
+                                service.images[0].replace('/images/', 'images/').replace('.webp', '')
                     }
                     alt={service.title}
-                    loading="lazy"
-                    decoding="async"
                     className={`w-full transition-transform duration-700 group-hover:scale-105 ${isPreventiva || isEstetica || isEndodontia || isHarmonizacao || isImplantes ? 'h-auto' : 'h-full object-cover'}`}
                   />
                 </div>

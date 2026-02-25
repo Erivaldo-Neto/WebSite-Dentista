@@ -1,14 +1,14 @@
 import { m } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '../ui/Button';
+import { ResponsiveImage } from '../ui/ResponsiveImage';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 const EASE = [0.25, 0.1, 0.25, 1] as const;
 
-// Caminhos absolutos para a pasta /public/images
-const rodrigoImg = '/images/rodrigo-HeroSection.webp';
-const heroBg = '/images/background-herosection.webp';
-
 export const Hero = () => {
+  const shouldReduceMotion = useReducedMotion();
+
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -22,22 +22,22 @@ export const Hero = () => {
     >
 
       {/* ─── FUNDO: consultório ─────────────────────────────────── */}
-      <m.img
-        src={heroBg}
-        alt=""
-        aria-hidden="true"
-        fetchPriority="high"
-        decoding="async"
-        loading="eager"
-        className="absolute inset-0 w-full h-full object-cover z-0"
-        style={{ objectPosition: 'center 30%' }}
-        initial={{ opacity: 0, scale: 1.04 }}
+      <m.div
+        className="absolute inset-0 w-full h-full z-0 hero-background"
+        initial={shouldReduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.04 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.2, ease: EASE }}
-      />
+        transition={{ duration: shouldReduceMotion ? 0 : 1.2, ease: EASE }}
+      >
+        <ResponsiveImage
+          baseName="images/background-herosection"
+          alt="Consultório Odontológico"
+          className="w-full h-full object-cover"
+          eager
+        />
+      </m.div>
 
       {/* ─── GRADIENTE BASE — escurece tuda a seção ─────────────── */}
-      {/* Desktop: forte à esquerda, dissolve suavemente ao centro */}
+      {/* (Restante do código de gradiente omitido para brevidade no replacement) */}
       <div
         className="absolute inset-0 z-10 pointer-events-none hidden md:block"
         style={{
@@ -47,7 +47,6 @@ export const Hero = () => {
           ].join(', '),
         }}
       />
-      {/* Mobile: escurece fortemente a parte inferior para dar leitura ao texto */}
       <div
         className="absolute inset-0 z-20 pointer-events-none md:hidden"
         style={{
@@ -56,11 +55,6 @@ export const Hero = () => {
         }}
       />
 
-      {/* ─── ZONA DE FUSÃO SUAVE (desktop) ─────────────────────────
-          Overlay adicional que elimina a "costura" onde o gradiente
-          base termina e a imagem do Rodrigo começa.
-          Ocupa a faixa de transição (~30%→60% da largura).
-      ──────────────────────────────────────────────────────────── */}
       <div
         className="absolute inset-y-0 z-20 pointer-events-none hidden md:block"
         style={{
@@ -71,53 +65,41 @@ export const Hero = () => {
         }}
       />
 
-      {/* ─── DR. RODRIGO — MOBILE ────────────────────────────────────
-          Posicionado mais ao topo e com altura reduzida para não bater no texto
-      ──────────────────────────────────────────────────────────── */}
-      <img
-        src={rodrigoImg}
-        alt="Dr. Rodrigo Silva"
-        decoding="async"
-        loading="eager"
-        fetchPriority="high"
-        className="absolute z-10 md:hidden"
+      {/* ─── DR. RODRIGO — MOBILE ──────────────────────────────────── */}
+      <div
+        className="absolute z-10 md:hidden rodrigo-image"
         style={{
           top: '40px',
           left: '50%',
           transform: 'translateX(-50%)',
           height: '48%',
-          width: 'auto',
-          objectFit: 'contain',
-          objectPosition: 'top center',
           filter: 'drop-shadow(0 0 20px rgba(0,0,0,0.3))'
         }}
-      />
-
-      {/* ─── DR. RODRIGO — DESKTOP ───────────────────────────────────
-          Container ocupa a METADE DIREITA da tela (left:50% → right:0).
-          Flex centraliza o Rodrigo dentro dessa metade.
-          Assim ele fica no meio da área direita, não colado no canto.
-      ──────────────────────────────────────────────────────────── */}
-      <m.div
-        className="absolute z-30 hidden md:flex items-end justify-center"
-        style={{ left: '48%', right: 0, top: 0, bottom: 0 }}
-        initial={{ opacity: 0, x: 30 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1, delay: 0.5, ease: EASE }}
       >
-        <img
-          src={rodrigoImg}
+        <ResponsiveImage
+          baseName="images/rodrigo-HeroSection"
           alt="Dr. Rodrigo Silva"
-          fetchPriority="high"
-          decoding="async"
-          loading="eager"
-          style={{
-            height: '94vh',       /* ligeiramente maior */
-            width: 'auto',
-            objectFit: 'contain',
-            objectPosition: 'bottom center',
-          }}
+          className="h-full w-auto object-contain object-top"
+          eager
         />
+      </div>
+
+      {/* ─── DR. RODRIGO — DESKTOP ─────────────────────────────────── */}
+      <m.div
+        className="absolute z-30 hidden md:flex items-end justify-center rodrigo-image"
+        style={{ left: '48%', right: 0, top: 0, bottom: 0 }}
+        initial={shouldReduceMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: shouldReduceMotion ? 0 : 1, delay: shouldReduceMotion ? 0 : 0.5, ease: EASE }}
+      >
+        <div style={{ height: '94vh' }}>
+          <ResponsiveImage
+            baseName="images/rodrigo-HeroSection"
+            alt="Dr. Rodrigo Silva"
+            className="h-full w-auto object-contain object-bottom"
+            eager
+          />
+        </div>
       </m.div>
 
 
@@ -142,9 +124,9 @@ export const Hero = () => {
               maxWidth: '520px',
               marginBottom: '16px',
             }}
-            initial={{ opacity: 0, y: 18 }}
+            initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.7, delay: shouldReduceMotion ? 0 : 0.3, ease: EASE }}
           >
             Odontologia de <br />
             <span style={{ fontStyle: 'italic', color: '#E9C45C', fontWeight: 500 }}>Excelência</span>{' '}
@@ -154,9 +136,9 @@ export const Hero = () => {
           {/* Linha dourada */}
           <m.div
             style={{ width: '48px', height: '1px', background: '#E9C45C', opacity: 0.6, marginBottom: '16px' }}
-            initial={{ opacity: 0, scaleX: 0 }}
+            initial={shouldReduceMotion ? { opacity: 0.6, scaleX: 1 } : { opacity: 0, scaleX: 0 }}
             animate={{ opacity: 0.6, scaleX: 1 }}
-            transition={{ duration: 0.6, delay: 0.5, ease: EASE }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: shouldReduceMotion ? 0 : 0.5, ease: EASE }}
           />
 
           {/* Subtítulo */}
@@ -170,9 +152,9 @@ export const Hero = () => {
               maxWidth: '390px',
               marginBottom: '28px',
             }}
-            initial={{ opacity: 0, y: 14 }}
+            initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.55, ease: EASE }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: shouldReduceMotion ? 0 : 0.55, ease: EASE }}
           >
             Experiência premium em reabilitação oral e estética do sorriso.
             Tecnologia de ponta, conforto absoluto e resultados naturais.
@@ -181,9 +163,9 @@ export const Hero = () => {
           {/* Estatísticas */}
           <m.div
             className="flex items-center mb-8"
-            initial={{ opacity: 0, y: 14 }}
+            initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.7, ease: EASE }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: shouldReduceMotion ? 0 : 0.7, ease: EASE }}
           >
             {[
               { num: '12+', label: 'Anos de Experiência' },
@@ -209,9 +191,9 @@ export const Hero = () => {
           {/* Botões */}
           <m.div
             className="flex flex-col sm:flex-row flex-wrap gap-4"
-            initial={{ opacity: 0, y: 14 }}
+            initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.85, ease: EASE }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: shouldReduceMotion ? 0 : 0.85, ease: EASE }}
           >
             <Button
               variant="primary"

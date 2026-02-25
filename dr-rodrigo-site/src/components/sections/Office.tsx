@@ -1,33 +1,28 @@
 import { useState, useEffect } from 'react';
 import { m } from 'framer-motion';
-
-// Imports das imagens dos assets
-import recepcaoImg from '../../assets/images/recepção.png';
-import salaEsperaImg from '../../assets/images/sala-de-espera.jpeg';
-import salaEsterilImg from '../../assets/images/sala-de-esterilização.png';
-import salaAtendImg from '../../assets/images/sala-de-atendimento.png';
+import { ResponsiveImage } from '../ui/ResponsiveImage';
 
 export const Office = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const images = [
     {
-      src: recepcaoImg,
+      baseName: 'images/recepcao',
       label: 'Recepção',
       description: 'Ambiente acolhedor que transmite confiança desde o primeiro momento.'
     },
     {
-      src: salaEsperaImg,
+      baseName: 'images/sala-de-espera',
       label: 'Sala de Espera',
       description: 'Conforto e serenidade enquanto você aguarda o seu atendimento.'
     },
     {
-      src: salaEsterilImg,
+      baseName: 'images/sala-de-esterilizacao',
       label: 'Esterilização',
       description: 'Protocolos rigorosos de biossegurança para a sua total tranquilidade.'
     },
     {
-      src: salaAtendImg,
+      baseName: 'images/sala-de-atendimento',
       label: 'Sala de Atendimento',
       description: 'Tecnologia de ponta em um ambiente pensado para o seu conforto.'
     }
@@ -38,7 +33,7 @@ export const Office = () => {
       setActiveIndex((prev) => (prev + 1) % images.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [activeIndex, images.length]);
+  }, [images.length]);
 
   return (
     <section id="office" className="bg-[#0A2A43] overflow-hidden">
@@ -67,11 +62,10 @@ export const Office = () => {
             animate={{ opacity: activeIndex === i ? 1 : 0 }}
             transition={{ duration: 2, ease: [0.43, 0.13, 0.23, 0.96] }}
           >
-            <img
-              src={img.src}
+            <ResponsiveImage
+              baseName={img.baseName}
               alt={img.label}
               className="w-full h-full object-cover object-center"
-              style={{ filter: 'brightness(0.8) contrast(1.05)' }}
             />
           </m.div>
         ))}

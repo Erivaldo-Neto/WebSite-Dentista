@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { Menu, X, Phone, Calendar } from 'lucide-react';
-import logoImg from '../../assets/images/logo-rodrigo.png';
+import { ResponsiveImage } from '../ui/ResponsiveImage';
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -22,6 +22,25 @@ export const Header = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       setIsMobileMenuOpen(false);
+    }
+  };
+
+  const prefetchSection = (id: string) => {
+    switch (id) {
+      case 'about':
+        import('../sections/About');
+        break;
+      case 'services':
+        import('../sections/ServiceSection');
+        break;
+      case 'office':
+        import('../sections/Office');
+        break;
+      case 'locations':
+        import('../sections/Locations');
+        break;
+      default:
+        break;
     }
   };
 
@@ -50,15 +69,11 @@ export const Header = () => {
             className="relative cursor-pointer group z-50 h-10 md:h-12 flex items-center min-w-[200px] md:min-w-[380px]"
             onClick={() => scrollToSection('hero')}
           >
-            <img
-              src={logoImg}
+            <ResponsiveImage
+              baseName="images/logo-rodrigo"
               alt="Dr. Rodrigo Silva Logo"
-              className="absolute left-0 h-[130px] md:h-[250px] max-w-none w-auto transition-all duration-300 group-hover:scale-[1.03] pointer-events-none"
-              style={{
-                top: '50%',
-                transform: 'translateY(-50%)',
-                filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.15))'
-              }}
+              className="absolute left-0 top-1/2 -translate-y-1/2 h-[150px] md:h-[280px] max-w-none w-auto transition-all duration-300 group-hover:scale-[1.03] pointer-events-none"
+              eager
             />
           </div>
 
@@ -68,6 +83,7 @@ export const Header = () => {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
+                onMouseEnter={() => prefetchSection(item.id)}
                 className="text-white hover:text-gold-bright text-[11px] uppercase tracking-[0.2em] font-medium transition-all duration-300 py-2 relative group"
               >
                 {item.label}
