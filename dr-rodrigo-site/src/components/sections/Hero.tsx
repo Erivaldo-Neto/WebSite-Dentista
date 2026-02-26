@@ -31,7 +31,7 @@ export const Hero = () => {
         <ResponsiveImage
           baseName="images/background-herosection"
           alt="Consultório Odontológico"
-          className="w-full h-full object-cover object-center opacity-70"
+          className="w-full h-full object-cover object-[50%_35%] opacity-70"
           eager
         />
       </m.div>

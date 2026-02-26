@@ -72,7 +72,7 @@ export const Header = () => {
             <ResponsiveImage
               baseName="images/logo-rodrigo"
               alt="Dr. Rodrigo Silva Logo"
-              className="absolute left-0 top-1/2 -translate-y-1/2 h-[180px] md:h-[280px] max-w-none w-auto transition-all duration-300 group-hover:scale-[1.03] pointer-events-none"
+              className="absolute left-[-25px] md:left-0 top-1/2 -translate-y-1/2 h-[180px] md:h-[280px] max-w-none w-auto transition-all duration-300 group-hover:scale-[1.03] pointer-events-none"
               eager
             />
           </div>
