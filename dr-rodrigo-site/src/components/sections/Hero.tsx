@@ -23,7 +23,7 @@ export const Hero = () => {
 
       {/* ─── FUNDO: consultório ─────────────────────────────────── */}
       <m.div
-        className="absolute inset-0 w-full h-full z-0 hero-background bg-[#0A2A43]"
+        className="absolute inset-0 w-full h-full z-0 hero-background"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, ease: EASE }}
@@ -31,7 +31,7 @@ export const Hero = () => {
         <ResponsiveImage
           baseName="images/background-herosection"
           alt="Consultório Odontológico"
-          className="w-full h-full object-cover object-center md:scale-100 scale-[0.6] opacity-40"
+          className="w-full h-full object-cover object-center opacity-70"
           eager
         />
       </m.div>
