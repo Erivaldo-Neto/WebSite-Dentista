@@ -250,7 +250,9 @@ function ServiceCard({ service, onExpand }: ServiceCardProps) {
                         <img
                             src={service.afterImage}
                             alt={service.title}
-                            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                            draggable="false"
+                            onDragStart={(e) => e.preventDefault()}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', userSelect: 'none' }}
                         />
                         <div style={{
                             position: 'absolute', bottom: '8px', left: '8px',
@@ -267,7 +269,9 @@ function ServiceCard({ service, onExpand }: ServiceCardProps) {
                     <img
                         src={service.image}
                         alt={service.title}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        draggable="false"
+                        onDragStart={(e) => e.preventDefault()}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', userSelect: 'none' }}
                     />
                 )}
             </div>
@@ -314,6 +318,10 @@ export function Services() {
     const lastTsRef = useRef<number | null>(null)
     const trackRef = useRef<HTMLDivElement>(null)
     const isPausedRef = useRef(false)
+    const isDraggingRef = useRef(false)
+    const startXRef = useRef(0)
+    const totalDeltaRef = useRef(0)
+    const resumeTimeoutRef = useRef<number | null>(null)
 
     const PX_PER_MS = TOTAL_WIDTH / DURATION_PER_CYCLE_MS
 
@@ -321,6 +329,7 @@ export function Services() {
         if (!isPausedRef.current && lastTsRef.current !== null) {
             const delta = ts - lastTsRef.current
             xRef.current -= delta * PX_PER_MS
+            // Loop adjustment
             if (xRef.current <= -TOTAL_WIDTH) xRef.current += TOTAL_WIDTH
             if (trackRef.current) {
                 trackRef.current.style.transform = `translateX(${xRef.current}px)`
@@ -328,7 +337,7 @@ export function Services() {
         }
         lastTsRef.current = ts
         rafRef.current = requestAnimationFrame(tick)
-    }, [PX_PER_MS])
+    }, [PX_PER_MS, TOTAL_WIDTH])
 
     useEffect(() => {
         rafRef.current = requestAnimationFrame(tick)
@@ -343,13 +352,66 @@ export function Services() {
     }, [])
 
     const handleExpand = (rawIndex: number) => {
+        // Ignorar se o usuário estava arrastando (mais de 5px de movimento)
+        if (Math.abs(totalDeltaRef.current) > 5) return
+
         isPausedRef.current = true
         setExpandedIndex(rawIndex % services.length)
+        if (resumeTimeoutRef.current) {
+            clearTimeout(resumeTimeoutRef.current)
+            resumeTimeoutRef.current = null
+        }
     }
 
     const handleCollapse = () => {
         setExpandedIndex(null)
-        isPausedRef.current = false
+        // Só retoma se não estivermos arrastando
+        if (!isDraggingRef.current) {
+            isPausedRef.current = false
+        }
+    }
+
+    // ── LÓGICA DE DRAG ──────────────────────────────────────
+    const onDragStart = (clientX: number) => {
+        isDraggingRef.current = true
+        startXRef.current = clientX
+        totalDeltaRef.current = 0
+        isPausedRef.current = true
+        if (resumeTimeoutRef.current) {
+            clearTimeout(resumeTimeoutRef.current)
+            resumeTimeoutRef.current = null
+        }
+    }
+
+    const onDragMove = (clientX: number) => {
+        if (!isDraggingRef.current) return
+        const delta = clientX - startXRef.current
+        totalDeltaRef.current += delta
+        startXRef.current = clientX
+
+        xRef.current += delta
+        // Manter dentro do range [ -TOTAL_WIDTH, 0 ]
+        if (xRef.current > 0) xRef.current -= TOTAL_WIDTH
+        if (xRef.current <= -TOTAL_WIDTH) xRef.current += TOTAL_WIDTH
+
+        if (trackRef.current) {
+            trackRef.current.style.transform = `translateX(${xRef.current}px)`
+        }
+    }
+
+    const onDragEnd = () => {
+        if (!isDraggingRef.current) return
+        isDraggingRef.current = false
+
+        // Se um card estiver expandido, não retoma o scroll
+        if (expandedIndex !== null) return
+
+        // Retomar após 1 segundo
+        resumeTimeoutRef.current = window.setTimeout(() => {
+            if (!isDraggingRef.current && expandedIndex === null) {
+                isPausedRef.current = false
+            }
+        }, 1000)
     }
 
     const expandedService = expandedIndex !== null ? services[expandedIndex] : null
@@ -403,7 +465,16 @@ export function Services() {
 
             {/* ── CARROSSEL DESKTOP ───────────────────────────────── */}
             {!isMobile ? (
-                <div style={{ position: 'relative', width: '100%', height: '480px', overflow: 'hidden' }}>
+                <div
+                    style={{
+                        position: 'relative', width: '100%', height: '480px', overflow: 'hidden',
+                        cursor: 'grab', userSelect: 'none', WebkitUserSelect: 'none'
+                    }}
+                    onMouseDown={(e) => onDragStart(e.clientX)}
+                    onMouseMove={(e) => onDragMove(e.clientX)}
+                    onMouseUp={onDragEnd}
+                    onMouseLeave={onDragEnd}
+                >
                     {/* Fades laterais */}
                     <div style={{
                         position: 'absolute', left: 0, top: 0, bottom: 0, width: '200px',
@@ -427,6 +498,7 @@ export function Services() {
                             width: 'max-content',
                             paddingLeft: '220px',
                             willChange: 'transform',
+                            pointerEvents: 'auto'
                         }}
                     >
                         {[...services, ...services, ...services].map((svc, i) => (
@@ -435,8 +507,15 @@ export function Services() {
                     </div>
                 </div>
             ) : (
-                /* ── CARROSSEL MOBILE: loop contínuo igual ao desktop ─ */
-                <div style={{ position: 'relative', width: '100%', height: '420px', overflow: 'hidden' }}>
+                <div
+                    style={{
+                        position: 'relative', width: '100%', height: '420px', overflow: 'hidden',
+                        userSelect: 'none', WebkitUserSelect: 'none'
+                    }}
+                    onTouchStart={(e) => onDragStart(e.touches[0].clientX)}
+                    onTouchMove={(e) => onDragMove(e.touches[0].clientX)}
+                    onTouchEnd={onDragEnd}
+                >
                     {/* Fades laterais */}
                     <div style={{
                         position: 'absolute', left: 0, top: 0, bottom: 0, width: '40px',

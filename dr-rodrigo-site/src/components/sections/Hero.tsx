@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { m } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '../ui/Button';
@@ -8,6 +9,14 @@ const EASE = [0.25, 0.1, 0.25, 1] as const;
 
 export const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -120,13 +129,15 @@ export const Hero = () => {
             style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontWeight: 400,
-              fontSize: 'clamp(30px, 3.8vw, 48px)', // Reduzido para maior segurança
+              fontSize: 'clamp(28px, 4.5vw, 48px)', // Ajustado para evitar quebras em mobile
               lineHeight: 1.2,
-              maxWidth: '600px', // Aumentado levemente para acomodar melhor a frase
+              maxWidth: '600px',
               marginBottom: '20px',
-              marginTop: '100px', // Mais espaço para não encostar na nav bar
-              textAlign: 'justify', // Justificado conforme solicitado
-              hyphens: 'auto',
+              marginTop: '100px',
+              textAlign: isMobile ? 'left' : 'justify', // Mudado para left no mobile para evitar espaços grandes
+              hyphens: 'none',
+              wordBreak: 'keep-all',
+              overflowWrap: 'anywhere'
             }}
             initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
