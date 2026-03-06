@@ -68,12 +68,10 @@
 ═══════════════════════════════════════════════════════════════ */
 @layer components {
 
-  /* ── BOTÃO PRIMÁRIO (Dourado com Luz em tons de Ouro) ── */
+  /* ── BOTÃO PRIMÁRIO (Dourado animado com luz) ── */
   .btn-primary {
-    --duration: 4s;
-    /* Acelerado para mais movimento */
+    --duration: 3s;
     --easing: ease-in-out;
-    /* Somente tons de Dourado para não fugir do contraste do texto branco */
     --c-color-1: rgba(201, 168, 76, 0.8);
     --c-color-2: rgba(184, 150, 62, 0.7);
     --c-color-3: rgba(212, 175, 55, 0.6);
@@ -84,6 +82,7 @@
     --c-radial-inner: #C9A84C;
     --c-radial-outer: #A68633;
     --c-color: #ffffff;
+    /* texto branco no botão dourado */
     -webkit-tap-highlight-color: transparent;
     -webkit-appearance: none;
     outline: none;
@@ -92,7 +91,6 @@
     border: none;
     display: inline-table;
     border-radius: 4px;
-    /* Mais premium que 24px */
     padding: 0;
     margin: 0;
     text-align: center;
@@ -398,7 +396,7 @@
     }
   }
 
-  /* ── BOTÃO SECUNDÁRIO (Contorno com Animação Dourada) ── */
+  /* ── BOTÃO SECUNDÁRIO (contorno branco, efeito de borda dourada no hover) ── */
   .btn-secondary {
     position: relative;
     overflow: hidden;
@@ -445,7 +443,8 @@
   .btn-secondary:hover {
     color: #C9A84C;
     border-color: rgba(201, 168, 76, 0.5);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(201, 168, 76, 0.15);
   }
 
   .btn-secondary:hover::before {

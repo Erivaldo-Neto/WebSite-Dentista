@@ -4,6 +4,7 @@ import { AnimatePresence, m } from 'framer-motion'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 import { services } from '../../data/services'
 import { BeforeAfterSlider } from '../ui/BeforeAfterSlider'
+import { Button } from '../ui/Button'
 
 const CARD_WIDTH = 300
 const CARD_GAP = 24
@@ -148,22 +149,13 @@ function ExpandedCard({ service, isMobile, onClose }: ExpandedCardProps) {
                 ))}
             </ul>
 
-            <button
-                style={{
-                    alignSelf: 'flex-start',
-                    width: isMobile ? '100%' : 'auto',
-                    fontFamily: 'Montserrat, sans-serif', fontWeight: 600,
-                    fontSize: '11px', letterSpacing: '0.18em',
-                    textTransform: 'uppercase',
-                    background: 'linear-gradient(135deg, #C9A84C, #B8963E)',
-                    color: '#0A2A43', border: 'none',
-                    borderRadius: '8px', padding: '14px 32px',
-                    cursor: 'pointer',
-                    boxShadow: '0 4px 20px rgba(201,168,76,0.3)',
-                }}
+            <Button
+                variant="primary"
+                onClick={onClose}
+                className={isMobile ? 'w-full' : 'self-start'}
             >
                 Agendar Avaliação →
-            </button>
+            </Button>
         </div>
     )
 
@@ -443,36 +435,35 @@ export function Services() {
                     </div>
                 </div>
             ) : (
-                /* ── CARROSSEL MOBILE ─────────────────────────────── */
-                <div style={{ padding: '0 48px', position: 'relative', zIndex: 1, marginBottom: '8px' }}>
-                    <div style={{ position: 'relative' }}>
-                        <ServiceCard service={services[mobileIndex]} onExpand={() => handleExpand(mobileIndex)} />
-                        <button
-                            onClick={() => setMobileIndex(i => (i - 1 + services.length) % services.length)}
-                            style={{
-                                position: 'absolute', top: '50%', left: '-36px',
-                                transform: 'translateY(-50%)',
-                                width: '36px', height: '36px', borderRadius: '50%',
-                                background: 'rgba(10,42,67,0.9)', border: '1px solid rgba(201,168,76,0.4)',
-                                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                cursor: 'pointer',
-                            }}
-                        >
-                            <ChevronLeft size={18} color="#C9A84C" />
-                        </button>
-                        <button
-                            onClick={() => setMobileIndex(i => (i + 1) % services.length)}
-                            style={{
-                                position: 'absolute', top: '50%', right: '-36px',
-                                transform: 'translateY(-50%)',
-                                width: '36px', height: '36px', borderRadius: '50%',
-                                background: 'rgba(10,42,67,0.9)', border: '1px solid rgba(201,168,76,0.4)',
-                                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                cursor: 'pointer',
-                            }}
-                        >
-                            <ChevronRight size={18} color="#C9A84C" />
-                        </button>
+                /* ── CARROSSEL MOBILE: loop contínuo igual ao desktop ─ */
+                <div style={{ position: 'relative', width: '100%', height: '420px', overflow: 'hidden' }}>
+                    {/* Fades laterais */}
+                    <div style={{
+                        position: 'absolute', left: 0, top: 0, bottom: 0, width: '40px',
+                        background: 'linear-gradient(to right, #0A2A43 0%, transparent 100%)',
+                        zIndex: 30, pointerEvents: 'none'
+                    }} />
+                    <div style={{
+                        position: 'absolute', right: 0, top: 0, bottom: 0, width: '40px',
+                        background: 'linear-gradient(to left, #0A2A43 0%, transparent 100%)',
+                        zIndex: 30, pointerEvents: 'none'
+                    }} />
+                    {/* Mesma faixa de cards: usa o mesmo trackRef do desktop */}
+                    <div
+                        ref={trackRef}
+                        style={{
+                            display: 'flex',
+                            gap: `${CARD_GAP}px`,
+                            alignItems: 'center',
+                            height: '100%',
+                            width: 'max-content',
+                            paddingLeft: '24px',
+                            willChange: 'transform',
+                        }}
+                    >
+                        {[...services, ...services, ...services].map((svc, i) => (
+                            <ServiceCard key={i} service={svc} onExpand={() => handleExpand(i)} />
+                        ))}
                     </div>
                 </div>
             )}
@@ -543,20 +534,12 @@ export function Services() {
                     <strong style={{ color: '#C9A84C', fontWeight: 600 }}>avaliação gratuita</strong>
                     {' '}e descubra qual tratamento é ideal para o seu caso. Sem compromisso, sem pressa.
                 </p>
-                <button style={{
-                    fontFamily: 'Montserrat, sans-serif', fontWeight: 600,
-                    fontSize: '11px', letterSpacing: '0.18em',
-                    textTransform: 'uppercase',
-                    background: 'linear-gradient(135deg, #C9A84C, #B8963E)',
-                    color: '#0A2A43', border: 'none',
-                    borderRadius: '8px',
-                    padding: isMobile ? '14px 24px' : '16px 36px',
-                    width: isMobile ? '100%' : 'auto',
-                    cursor: 'pointer',
-                    boxShadow: '0 4px 20px rgba(201,168,76,0.3)',
-                }}>
+                <Button
+                    variant="primary"
+                    className={isMobile ? 'w-full' : ''}
+                >
                     Agendar Avaliação Gratuita
-                </button>
+                </Button>
             </m.div>
 
             {/* ── CARD EXPANDIDO VIA PORTAL ───────────────────────── */}
@@ -570,6 +553,6 @@ export function Services() {
                     />
                 )}
             </AnimatePresence>
-        </section>
+        </section >
     )
 }

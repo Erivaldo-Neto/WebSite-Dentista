@@ -51,7 +51,7 @@ export const Hero = () => {
         className="absolute inset-0 z-20 pointer-events-none md:hidden"
         style={{
           background:
-            'linear-gradient(to top, #0A2A43 45%, rgba(10,42,67,0.9) 60%, rgba(10,42,67,0.4) 80%, transparent 100%)',
+            'linear-gradient(to top, #0A2A43 30%, rgba(10,42,67,0.7) 50%, rgba(10,42,67,0.2) 72%, transparent 100%)',
         }}
       />
 
@@ -179,7 +179,7 @@ export const Hero = () => {
                   <div style={{ width: '1px', height: '30px', background: 'rgba(201,168,76,0.35)', flexShrink: 0 }} />
                 )}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', padding: i === 0 ? '0 18px 0 0' : '0 18px' }}>
-                  <span className="text-white text-shadow-img" style={{ fontFamily: "Montserrat, sans-serif", fontSize: 'clamp(24px, 2.4vw, 34px)', fontWeight: 600, lineHeight: 1 }}>
+                  <span className="text-shadow-img" style={{ color: '#C9A84C', fontFamily: "Montserrat, sans-serif", fontSize: 'clamp(24px, 2.4vw, 34px)', fontWeight: 600, lineHeight: 1 }}>
                     {stat.num}
                   </span>
                   <span className="text-shadow-img text-white/80" style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '10px', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase' }}>

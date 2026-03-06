@@ -54,10 +54,14 @@ export const Header = () => {
 
   return (
     <m.header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 border-b ${isScrolled
-        ? 'bg-[#0A2A43]/95 backdrop-blur-[20px] border-white/10 py-3 shadow-xl'
-        : 'bg-transparent border-transparent py-5'
+      className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-700 border-b ${isScrolled
+          ? 'bg-[#0A2A43]/95 backdrop-blur-[20px] border-white/10 py-3 shadow-xl'
+          : 'bg-transparent border-transparent py-5'
         }`}
+      style={{
+        // No mobile, garante background escuro sempre visível
+        background: undefined,
+      }}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -118,11 +122,16 @@ export const Header = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[65] lg:hidden"
               onClick={() => setIsMobileMenuOpen(false)}
             />
             <m.div
-              className="fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-primary z-50 lg:hidden border-l border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col"
+              className="fixed top-0 right-0 bottom-0 w-[85%] max-w-sm z-[70] lg:hidden border-l border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col"
+              style={{
+                background: 'rgba(10, 42, 67, 0.97)',
+                backdropFilter: 'blur(24px)',
+                WebkitBackdropFilter: 'blur(24px)',
+              }}
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}

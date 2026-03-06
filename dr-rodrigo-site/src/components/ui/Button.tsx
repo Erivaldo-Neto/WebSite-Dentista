@@ -19,7 +19,11 @@ export const Button = ({
 }: ButtonProps) => {
   if (variant === 'primary') {
     return (
-      <button className={`btn-primary ${className}`} {...props}>
+      <button
+        className={`btn-primary ${className}`}
+        style={{ color: '#ffffff' }}
+        {...props}
+      >
         <div className="wrapper">
           {/* Círculos animados para o efeito de luz de fundo */}
           <div className="circle circle-12"></div>
@@ -42,7 +46,11 @@ export const Button = ({
   }
 
   return (
-    <button className={`btn-secondary ${className}`} {...props}>
+    <button
+      className={`btn-secondary ${className}`}
+      style={{ color: '#ffffff' }}
+      {...props}
+    >
       {children}
     </button>
   );
