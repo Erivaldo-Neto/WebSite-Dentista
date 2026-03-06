@@ -7,6 +7,7 @@ interface BeforeAfterSliderProps {
     afterSrc: string;
     beforeAlt?: string;
     afterAlt?: string;
+    fillHeight?: boolean;  // quando true, ocupa 100% da altura do container pai (sem aspect-ratio)
 }
 
 export const BeforeAfterSlider = ({
@@ -14,6 +15,7 @@ export const BeforeAfterSlider = ({
     afterSrc,
     beforeAlt = 'Antes',
     afterAlt = 'Depois',
+    fillHeight = false,
 }: BeforeAfterSliderProps) => {
     const [sliderPosition, setSliderPosition] = useState(50);
     const [isDragging, setIsDragging] = useState(false);
@@ -54,7 +56,7 @@ export const BeforeAfterSlider = ({
     return (
         <div
             ref={containerRef}
-            className="relative w-full aspect-[4/3] overflow-hidden rounded-sm cursor-ew-resize select-none"
+            className={`relative w-full overflow-hidden rounded-sm cursor-ew-resize select-none ${fillHeight ? 'h-full' : 'aspect-[4/3]'}`}
             onMouseDown={() => setIsDragging(true)}
             onMouseMove={handleMouseMove}
             onTouchMove={handleTouchMove}

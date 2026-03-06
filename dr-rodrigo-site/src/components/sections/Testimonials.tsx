@@ -1,5 +1,5 @@
 import { m } from 'framer-motion';
-import { Quote } from 'lucide-react';
+import { Quote, Star } from 'lucide-react';
 import { testimonials } from '../../data/testimonials';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 
@@ -82,25 +82,37 @@ export const Testimonials = () => {
           ))}
         </div>
 
-        <m.div
-          initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: shouldReduceMotion ? 0 : 0.6 }}
-          className="mt-16 flex flex-col items-center"
-        >
-          <div className="text-5xl font-heading font-medium text-white mb-2 text-shadow-img">4.9</div>
-          <div className="flex gap-1 mb-2">
-            {[...Array(5)].map((_, i) => (
-              <svg key={i} className="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
+        <div className="mt-16 flex flex-col items-center">
+          <div className="flex gap-2 justify-center items-center my-6">
+            {[0, 1, 2, 3, 4].map((i) => (
+              <m.div
+                key={i}
+                initial={{ opacity: 0, scale: 0, rotate: -30 }}
+                whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  delay: i * 0.12,
+                  duration: 0.5,
+                  type: 'spring',
+                  stiffness: 200,
+                  damping: 12
+                }}
+                whileHover={{
+                  scale: 1.3,
+                  rotate: [0, -10, 10, 0],
+                  transition: { duration: 0.3 }
+                }}
+              >
+                <Star
+                  size={36}
+                  fill="#C9A84C"
+                  stroke="#C9A84C"
+                  strokeWidth={1}
+                />
+              </m.div>
             ))}
           </div>
-          <p className="text-white/80 text-sm font-semibold uppercase tracking-[0.18em]">
-            Baseado em 287 avaliações reais
-          </p>
-        </m.div>
+        </div>
       </div>
     </section>
   );

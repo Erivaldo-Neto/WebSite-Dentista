@@ -120,18 +120,19 @@ export const Hero = () => {
             style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontWeight: 400,
-              fontSize: 'clamp(42px, 5.5vw, 64px)',
-              lineHeight: 1.1,
-              maxWidth: '520px',
-              marginBottom: '16px',
+              fontSize: 'clamp(30px, 3.8vw, 48px)', // Reduzido para maior segurança
+              lineHeight: 1.2,
+              maxWidth: '600px', // Aumentado levemente para acomodar melhor a frase
+              marginBottom: '20px',
+              marginTop: '100px', // Mais espaço para não encostar na nav bar
+              textAlign: 'justify', // Justificado conforme solicitado
+              hyphens: 'auto',
             }}
             initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: shouldReduceMotion ? 0 : 0.7, delay: shouldReduceMotion ? 0 : 0.3, ease: EASE }}
           >
-            Odontologia de <br />
-            <span style={{ fontStyle: 'italic', color: '#E9C45C', fontWeight: 500 }}>Excelência</span>{' '}
-            &amp; Arte.
+            Cuido do seu <span style={{ color: '#E9C45C', fontWeight: 500 }}>sorriso</span> com a <span style={{ fontStyle: 'italic', color: '#E9C45C', fontWeight: 500 }}>precisão</span> que ele merece.
           </m.h1>
 
           {/* Linha dourada */}
@@ -150,15 +151,15 @@ export const Hero = () => {
               fontWeight: 400,
               fontSize: 'clamp(14px, 1.3vw, 15px)',
               lineHeight: 1.7,
-              maxWidth: '390px',
+              maxWidth: '580px', // Aumentado para alinhar com o bloco do título
               marginBottom: '28px',
+              textAlign: 'justify', // Justificado conforme solicitado
             }}
             initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: shouldReduceMotion ? 0 : 0.55, ease: EASE }}
           >
-            Experiência premium em reabilitação oral e estética do sorriso.
-            Tecnologia de ponta, conforto absoluto e resultados naturais.
+            Cada sorriso é único e merece um cuidado exclusivo. Do tratamento dental à harmonia do seu rosto, venha descobrir o que posso fazer por você.
           </m.p>
 
           {/* Estatísticas */}
@@ -178,7 +179,7 @@ export const Hero = () => {
                   <div style={{ width: '1px', height: '30px', background: 'rgba(201,168,76,0.35)', flexShrink: 0 }} />
                 )}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', padding: i === 0 ? '0 18px 0 0' : '0 18px' }}>
-                  <span className="text-white text-shadow-img" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(24px, 2.4vw, 34px)', fontWeight: 500, lineHeight: 1 }}>
+                  <span className="text-white text-shadow-img" style={{ fontFamily: "Montserrat, sans-serif", fontSize: 'clamp(24px, 2.4vw, 34px)', fontWeight: 600, lineHeight: 1 }}>
                     {stat.num}
                   </span>
                   <span className="text-shadow-img text-white/80" style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '10px', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase' }}>

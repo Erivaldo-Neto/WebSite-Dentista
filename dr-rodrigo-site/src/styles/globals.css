@@ -23,7 +23,9 @@
   }
 
   /* Evitar zoom indesejado em inputs no iOS */
-  input, select, textarea {
+  input,
+  select,
+  textarea {
     font-size: 16px !important;
   }
 
@@ -478,19 +480,45 @@
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   }
 }
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-background,
+.clinic-slideshow,
+.rodrigo-image {
+  will-change: transform, opacity;
+}
+
+/* No container do carrossel em mobile */
+@media (max-width: 768px) {
+  .clinic-slideshow {
+    height: 60vw;
+    /* altura proporcional, não esticada */
+    max-height: 320px;
+    width: 100%;
+    border-radius: 12px;
+    /* retângulo arredondado */
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(201, 168, 76, 0.2);
+    /* sombra elegante */
+    margin: 0 auto;
   }
 
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
+  .clinic-slideshow img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* nunca estica — corta com proporção */
+    object-position: center;
   }
-
-  .hero-background,
-  .clinic-slideshow,
-  .rodrigo-image {
-    will-change: transform, opacity;
-  }
+}

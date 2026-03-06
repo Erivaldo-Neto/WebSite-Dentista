@@ -4,7 +4,11 @@ export interface Service {
   headline: string;
   description: string;
   benefits: string[];
+  image: string;
   images: string[];
+  hasBeforeAfter?: boolean;
+  beforeImage?: string;
+  afterImage?: string;
   visualIdentity: {
     primaryColor: string;
     secondaryColor: string;
@@ -25,10 +29,13 @@ export const services: Service[] = [
       'Acompanhamento contínuo personalizado',
       'Resultados duradouros e naturais'
     ],
+    image: '/images/versao-depois-ortodontia.webp',
+    hasBeforeAfter: true,
+    beforeImage: '/images/versao-antes-ortodontia.webp',
+    afterImage: '/images/versao-depois-ortodontia.webp',
     images: [
-      '/images/ortodontia-1.webp',
-      '/images/ortodontia-2.webp',
-      '/images/ortodontia-3.webp'
+      '/images/versao-antes-ortodontia.webp',
+      '/images/versao-depois-ortodontia.webp',
     ],
     visualIdentity: {
       primaryColor: '#1A3F5C',
@@ -48,9 +55,9 @@ export const services: Service[] = [
       'Orientação de higiene personalizada',
       'Detecção precoce de problemas'
     ],
+    image: '/images/rodrigo-Odontologia-preventivo.webp',
     images: [
-      '/images/preventiva-1.webp',
-      '/images/preventiva-2.webp'
+      '/images/rodrigo-Odontologia-preventivo.webp',
     ],
     visualIdentity: {
       primaryColor: '#FFFFFF',
@@ -70,11 +77,9 @@ export const services: Service[] = [
       'Resultados naturais e harmoniosos',
       'Planejamento digital do sorriso'
     ],
+    image: '/images/dentistica-estetica-section.webp',
     images: [
-      '/images/estetica-1.webp',
-      '/images/estetica-2.webp',
-      '/images/estetica-3.webp',
-      '/images/estetica-4.webp'
+      '/images/dentistica-estetica-section.webp',
     ],
     visualIdentity: {
       primaryColor: '#FFFFFF',
@@ -94,9 +99,9 @@ export const services: Service[] = [
       'Materiais biocompatíveis modernos',
       'Alta taxa de sucesso'
     ],
+    image: '/images/Endodontia-section.webp',
     images: [
-      '/images/endodontia-1.webp',
-      '/images/endodontia-2.webp'
+      '/images/Endodontia-section.webp',
     ],
     visualIdentity: {
       primaryColor: '#0A2A43',
@@ -116,10 +121,9 @@ export const services: Service[] = [
       'Resultados naturais e harmoniosos',
       'Protocolos personalizados'
     ],
+    image: '/images/harmonizacao-section.webp',
     images: [
-      '/images/harmonizacao-1.webp',
-      '/images/harmonizacao-2.webp',
-      '/images/harmonizacao-3.webp'
+      '/images/harmonizacao-section.webp',
     ],
     visualIdentity: {
       primaryColor: '#FFF5F5',
@@ -137,12 +141,11 @@ export const services: Service[] = [
       'Planejamento 3D cirúrgico',
       'Implantes premium importados',
       'Próteses de alta precisão',
-      'Carga imediata quando possível'
+      'Recuperação rápida e retorno imediato à sua rotina'
     ],
+    image: '/images/Implante-section.webp',
     images: [
-      '/images/implantes-1.webp',
-      '/images/implantes-2.webp',
-      '/images/implantes-3.webp'
+      '/images/Implante-section.webp',
     ],
     visualIdentity: {
       primaryColor: '#0A2A43',

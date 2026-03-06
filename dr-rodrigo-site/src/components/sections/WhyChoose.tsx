@@ -59,14 +59,14 @@ export const WhyChoose = () => {
 
             <div className="hidden lg:block">
               <div className="flex items-center gap-4 mb-4">
-                <div className="text-5xl font-heading font-medium text-gold-bright">12+</div>
+                <div className="text-5xl font-sans font-bold text-gold-bright">12+</div>
                 <div className="text-sm text-white/80 uppercase tracking-[0.14em] font-semibold leading-tight">
                   Anos de<br />Experiência
                 </div>
               </div>
               <div className="w-full h-[1px] bg-white/10 my-4"></div>
               <div className="flex items-center gap-4">
-                <div className="text-5xl font-heading font-medium text-gold-bright">5k+</div>
+                <div className="text-5xl font-sans font-bold text-gold-bright">5k+</div>
                 <div className="text-sm text-white/80 uppercase tracking-[0.14em] font-semibold leading-tight">
                   Sorrisos<br />Transformados
                 </div>

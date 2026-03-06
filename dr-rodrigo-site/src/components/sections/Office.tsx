@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { m } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { ResponsiveImage } from '../ui/ResponsiveImage';
 
 export const Office = () => {
@@ -33,7 +34,7 @@ export const Office = () => {
       setActiveIndex((prev) => (prev + 1) % images.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [images.length]);
+  }, [activeIndex, images.length]);
 
   return (
     <section id="office" className="bg-[#0A2A43] overflow-hidden">
@@ -51,7 +52,7 @@ export const Office = () => {
       </div>
 
       {/* ─── CARROSSEL — CONTAINER PRINCIPAL ────────────────────────── */}
-      <div className="relative w-full h-[60vh] md:h-[85vh] overflow-hidden">
+      <div className="relative clinic-slideshow w-full h-[60vh] md:h-[85vh] overflow-hidden">
 
         {/* Camada 1 — As imagens empilhadas com cross-fade */}
         {images.map((img, i) => (
@@ -119,6 +120,45 @@ export const Office = () => {
             </m.div>
           ))}
         </div>
+
+        {/* Setas de navegação */}
+        <button
+          onClick={() => setActiveIndex((prev) => (prev - 1 + images.length) % images.length)}
+          className="absolute left-6 top-1/2 -translate-y-1/2 z-20
+                     w-12 h-12 rounded-full
+                     border border-[rgba(201,168,76,0.5)]
+                     bg-[rgba(10,42,67,0.6)]
+                     backdrop-filter backdrop-blur-sm
+                     flex items-center justify-center
+                     hover:border-[#C9A84C] hover:bg-[rgba(10,42,67,0.85)]
+                     transition-all duration-300
+                     group"
+          aria-label="Imagem anterior"
+        >
+          <ChevronLeft
+            size={20}
+            className="text-[#C9A84C] group-hover:scale-110 transition-transform"
+          />
+        </button>
+
+        <button
+          onClick={() => setActiveIndex((prev) => (prev + 1) % images.length)}
+          className="absolute right-6 top-1/2 -translate-y-1/2 z-20
+                     w-12 h-12 rounded-full
+                     border border-[rgba(201,168,76,0.5)]
+                     bg-[rgba(10,42,67,0.6)]
+                     backdrop-filter backdrop-blur-sm
+                     flex items-center justify-center
+                     hover:border-[#C9A84C] hover:bg-[rgba(10,42,67,0.85)]
+                     transition-all duration-300
+                     group"
+          aria-label="Próxima imagem"
+        >
+          <ChevronRight
+            size={20}
+            className="text-[#C9A84C] group-hover:scale-110 transition-transform"
+          />
+        </button>
 
         {/* Camada 4 — Indicadores de progresso (linhas douradas) */}
         <div className="absolute bottom-8 right-6 md:right-16 flex gap-3 items-center z-30">

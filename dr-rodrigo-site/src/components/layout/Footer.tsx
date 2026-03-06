@@ -11,9 +11,9 @@ export const Footer = () => {
   ];
 
   const cities = [
-    'São Paulo - Jardins',
-    'Campinas - Cambuí',
-    'Santos - Gonzaga'
+    'Manaus - Adrianópolis',
+    'Recife - Boa Viagem',
+    'São Paulo - Jardins'
   ];
 
   return (
@@ -21,7 +21,7 @@ export const Footer = () => {
       <div className="container-custom px-6 lg:px-20 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div>
-            <h3 className="text-2xl font-heading font-bold mb-4">
+            <h3 className="text-2xl font-heading font-bold mb-4 text-gold-bright">
               Dr. Rodrigo Silva
             </h3>
             <p className="text-white/80 text-sm mb-6">
@@ -56,7 +56,7 @@ export const Footer = () => {
           </div>
 
           <div>
-            <h4 className="text-lg font-heading font-semibold mb-4">
+            <h4 className="text-lg font-heading font-semibold mb-4 text-gold-bright">
               Especialidades
             </h4>
             <ul className="space-y-2">
@@ -69,7 +69,7 @@ export const Footer = () => {
           </div>
 
           <div>
-            <h4 className="text-lg font-heading font-semibold mb-4">
+            <h4 className="text-lg font-heading font-semibold mb-4 text-gold-bright">
               Cidades Atendidas
             </h4>
             <ul className="space-y-3">
@@ -83,7 +83,7 @@ export const Footer = () => {
           </div>
 
           <div>
-            <h4 className="text-lg font-heading font-semibold mb-4">
+            <h4 className="text-lg font-heading font-semibold mb-4 text-gold-bright">
               Contato
             </h4>
             <ul className="space-y-3">
