@@ -18,13 +18,13 @@ export const Locations = () => {
       {/* Título */}
       <div className="text-center mb-16 px-6">
         <span className="block font-sans text-[11px] uppercase tracking-[0.3em] text-gold-bright mb-4">
-          Onde Estamos
+          Onde Estou
         </span>
         <h2 className="text-[#0A2A43] font-heading font-normal leading-tight text-[32px] md:text-[52px] mb-4">
           Localizações <em className="text-gold-bright not-italic italic">estratégicas</em>
         </h2>
         <p className="text-lg text-[#0A2A43]/80 max-w-2xl mx-auto font-normal">
-          Consultórios de fácil acesso, projetados para o seu máximo conforto.
+          Estou presente em regiões estratégicas para que você tenha acesso ao melhor cuidado sem complicações.
         </p>
       </div>
 

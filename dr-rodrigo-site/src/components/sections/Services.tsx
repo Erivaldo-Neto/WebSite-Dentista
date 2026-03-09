@@ -43,20 +43,20 @@ function ExpandedCard({ service, isMobile, onClose }: ExpandedCardProps) {
     const leftPanel = (
         <div style={{
             width: isMobile ? '100%' : '45%',
+            aspectRatio: isMobile ? '4/5' : 'auto',
             flexShrink: 0,
             background: '#050F1A',
             overflow: 'hidden',
             position: 'relative',
             alignSelf: 'stretch',
-            minHeight: isMobile ? '220px' : '360px',
         }}>
             {service.hasBeforeAfter && service.beforeImage && service.afterImage ? (
                 <div style={{ position: 'absolute', inset: 0 }}>
                     <BeforeAfterSlider
                         beforeSrc={service.beforeImage}
                         afterSrc={service.afterImage}
-                        beforeAlt="Antes do tratamento ortodôntico"
-                        afterAlt="Depois do tratamento ortodôntico"
+                        beforeAlt="Antes do tratamento"
+                        afterAlt="Depois do tratamento"
                         fillHeight
                     />
                 </div>
@@ -70,6 +70,7 @@ function ExpandedCard({ service, isMobile, onClose }: ExpandedCardProps) {
                         width: '100%',
                         height: '100%',
                         objectFit: 'cover',
+                        objectPosition: 'center top',
                         display: 'block',
                     }}
                 />
@@ -80,26 +81,29 @@ function ExpandedCard({ service, isMobile, onClose }: ExpandedCardProps) {
     const rightPanel = (
         <div style={{
             flex: 1,
-            padding: isMobile ? '24px' : '40px 36px',
-            overflowY: 'auto',
+            padding: isMobile ? '24px 20px' : '40px 36px',
+            WebkitOverflowScrolling: 'touch',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
+            justifyContent: isMobile ? 'flex-start' : 'center',
             gap: '0',
+            position: 'relative',
         }}>
-            {/* Fechar */}
+            {/* Fechar - Agora fixo em relação ao viewport para estar sempre acessível */}
             <button
                 onClick={onClose}
                 style={{
-                    position: 'absolute', top: '16px', right: '16px', zIndex: 10,
-                    width: '36px', height: '36px', borderRadius: '50%',
-                    background: 'rgba(201,168,76,0.15)',
-                    border: '1px solid rgba(201,168,76,0.3)',
+                    position: 'fixed', top: isMobile ? '28px' : '32px', right: isMobile ? '28px' : '32px', zIndex: 1000,
+                    width: isMobile ? '36px' : '40px', height: isMobile ? '36px' : '40px', borderRadius: '50%',
+                    background: 'rgba(10,42,67,0.85)',
+                    backdropFilter: 'blur(8px)',
+                    border: '1px solid rgba(201,168,76,0.6)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     cursor: 'pointer', flexShrink: 0,
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.4)'
                 }}
             >
-                <X size={16} color="#C9A84C" />
+                <X size={isMobile ? 18 : 20} color="#C9A84C" />
             </button>
 
             <span style={{
@@ -195,21 +199,41 @@ function ExpandedCard({ service, isMobile, onClose }: ExpandedCardProps) {
                     onClick={e => e.stopPropagation()}
                     style={{
                         width: '100%',
-                        maxWidth: isMobile ? '480px' : '900px',
-                        maxHeight: '85vh',
+                        maxWidth: isMobile ? '520px' : '900px',
+                        maxHeight: isMobile ? '92vh' : '85vh',
                         borderRadius: '24px',
-                        background: 'linear-gradient(135deg, #0A2A43 0%, #0d3252 100%)',
+                        background: '#0A2A43',
                         border: '1px solid rgba(201,168,76,0.35)',
                         boxShadow: '0 40px 100px rgba(0,0,0,0.7)',
-                        overflow: 'hidden',
+                        overflowY: 'auto',
+                        overflowX: 'hidden',
                         display: 'flex',
                         flexDirection: isMobile ? 'column' : 'row',
-                        alignItems: 'stretch',  // garante que ambos os painéis tenha a mesma altura
+                        alignItems: isMobile ? 'flex-start' : 'stretch',
                         cursor: 'default',
                         pointerEvents: 'all',
                         position: 'relative',
+                        scrollbarWidth: 'thin',
+                        scrollbarColor: '#C9A84C rgba(0,0,0,0.2)',
                     }}
+                    className="custom-scrollbar"
                 >
+                    <style>{`
+                        .custom-scrollbar::-webkit-scrollbar {
+                            width: 6px;
+                        }
+                        .custom-scrollbar::-webkit-scrollbar-track {
+                            background: rgba(0, 0, 0, 0.2);
+                            border-radius: 10px;
+                        }
+                        .custom-scrollbar::-webkit-scrollbar-thumb {
+                            background: #C9A84C;
+                            border-radius: 10px;
+                        }
+                        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                            background: #E9C45C;
+                        }
+                    `}</style>
                     {leftPanel}
                     {rightPanel}
                 </m.div>
@@ -601,7 +625,7 @@ export function Services() {
                     fontSize: 'clamp(20px, 2.5vw, 28px)', color: '#FFFFFF',
                     marginBottom: '16px', lineHeight: 1.3
                 }}>
-                    Não sabe por onde começar?
+                    Pronto para transformar o seu sorriso?
                 </h3>
                 <p style={{
                     fontFamily: 'Montserrat, sans-serif', fontWeight: 300,
@@ -609,9 +633,9 @@ export function Services() {
                     lineHeight: 1.75, marginBottom: '28px',
                     maxWidth: '440px', margin: '0 auto 28px',
                 }}>
-                    Agende sua{' '}
+                    Dê o primeiro passo hoje. Agende sua{' '}
                     <strong style={{ color: '#C9A84C', fontWeight: 600 }}>avaliação gratuita</strong>
-                    {' '}e descubra qual tratamento é ideal para o seu caso. Sem compromisso, sem pressa.
+                    {' '}e descubra o que posso fazer por você.
                 </p>
                 <Button
                     variant="primary"

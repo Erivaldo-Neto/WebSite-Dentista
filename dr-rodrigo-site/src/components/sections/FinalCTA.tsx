@@ -33,11 +33,11 @@ export const FinalCTA = () => {
           </span>
 
           <h2 className="text-4xl md:text-6xl font-heading font-normal text-white mb-8 leading-tight text-shadow-img">
-            Excelência ao seu <span className="italic font-normal text-gold-bright">alcance</span>.
+            Pronto para transformar o seu <span className="italic font-normal text-gold-bright">sorriso</span>?
           </h2>
 
           <p className="text-lg md:text-xl text-white/80 mb-12 max-w-2xl mx-auto font-normal leading-relaxed text-shadow-sm">
-            Agende uma avaliação personalizada e descubra o protocolo ideal para a sua saúde e estética bucal.
+            Dê o primeiro passo hoje. Agende sua avaliação gratuita e descubra o que posso fazer por você.
           </p>
 
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-16">
@@ -46,7 +46,7 @@ export const FinalCTA = () => {
               className="w-full md:w-auto min-w-[240px]"
               onClick={() => { }}
             >
-              Agendar Consulta
+              Agendar Avaliação Gratuita
               <ArrowRight size={18} />
             </Button>
 

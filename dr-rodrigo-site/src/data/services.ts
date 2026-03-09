@@ -22,7 +22,7 @@ export const services: Service[] = [
     id: 'ortodontia',
     title: 'Ortodontia',
     headline: 'O caminho para o **sorriso** que você sempre quis',
-    description: 'Tratamentos ortodônticos personalizados com aparelhos fixos, móveis ou invisíveis. Tecnologia de ponta para alinhar seus dentes com conforto e resultados previsíveis.',
+    description: 'Alinhar seus dentes é o começo de uma transformação. Aparelhos fixos ou invisíveis com acompanhamento próximo e personalizado.',
     benefits: [
       'Diagnóstico digital 3D completo',
       'Aparelhos estéticos discretos',
@@ -48,7 +48,7 @@ export const services: Service[] = [
     id: 'preventiva',
     title: 'Odontologia Preventiva',
     headline: 'Cuidado **contínuo** para um sorriso sempre **saudável**',
-    description: 'Consultas preventivas, limpezas profissionais e orientações para manter sua saúde bucal impecável. Prevenção é o melhor tratamento.',
+    description: 'Cuido do seu sorriso hoje para que ele dure para sempre. Exames, limpezas e orientações que previnem antes de tratar.',
     benefits: [
       'Exames periódicos completos',
       'Limpeza profissional detalhada',
@@ -70,7 +70,7 @@ export const services: Service[] = [
     id: 'estetica',
     title: 'Dentística Estética',
     headline: 'Transforme seu sorriso com **naturalidade** e **beleza**',
-    description: 'Restaurações estéticas, clareamento dental, lentes de contato e facetas. Procedimentos que respeitam sua individualidade e realçam sua beleza natural.',
+    description: 'Restauro a beleza do seu sorriso respeitando o que é naturalmente seu. Clareamento, facetas e lentes com resultado que você vai amar.',
     benefits: [
       'Procedimentos minimamente invasivos',
       'Materiais de última geração',
@@ -92,7 +92,7 @@ export const services: Service[] = [
     id: 'endodontia',
     title: 'Endodontia',
     headline: 'Tratamento de canal com **precisão** e **conforto**',
-    description: 'Procedimentos endodônticos realizados com tecnologia de ponta e máximo conforto. Salvamos dentes que pareciam perdidos.',
+    description: 'Salvo dentes que pareciam perdidos — com tecnologia, precisão e o máximo de conforto para você.',
     benefits: [
       'Tecnologia de microscopia operatória',
       'Procedimento indolor e rápido',
@@ -114,7 +114,7 @@ export const services: Service[] = [
     id: 'harmonizacao',
     title: 'Harmonização Orofacial',
     headline: 'Equilíbrio e **naturalidade** para o seu rosto',
-    description: 'Procedimentos estéticos faciais que valorizam sua beleza natural. Toxina botulínica, preenchimentos e bioestimuladores com técnica refinada.',
+    description: 'Realço sua beleza natural com técnica refinada e um olhar artístico. Resultados sutis que valorizam quem você já é.',
     benefits: [
       'Avaliação facial completa',
       'Técnicas minimamente invasivas',
@@ -136,7 +136,7 @@ export const services: Service[] = [
     id: 'implantes',
     title: 'Implantodontia',
     headline: 'Reconstrua seu sorriso com **segurança** e **durabilidade**',
-    description: 'Implantes dentários de última geração, próteses fixas e reabilitações completas. Devolvemos função, estética e autoestima.',
+    description: 'Devolvo sua função, sua estética e sua autoestima. Implantes de última geração com planejamento 3D individualizado.',
     benefits: [
       'Planejamento 3D cirúrgico',
       'Implantes premium importados',

@@ -41,10 +41,10 @@ export const Office = () => {
       {/* ─── TÍTULO DA SEÇÃO (topo) ─────────────────────────────────── */}
       <div className="text-center pt-10 pb-8 md:pt-[64px] md:pb-[48px] px-6">
         <span className="block font-sans text-[11px] uppercase tracking-[0.3em] text-gold-bright mb-4">
-          Nossa Estrutura
+          Meu Consultório
         </span>
         <h2 className="text-white font-heading font-normal leading-tight text-[32px] md:text-[52px]">
-          O Consultório
+          Um ambiente pensado para você
         </h2>
         <div
           className="h-[1px] w-[48px] bg-gold-bright opacity-50 mx-auto mt-4"

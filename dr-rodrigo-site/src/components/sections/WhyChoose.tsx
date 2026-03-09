@@ -7,23 +7,23 @@ export const WhyChoose = () => {
   const reasons = [
     {
       icon: Award,
-      title: 'Excelência Técnica',
-      description: 'Formação internacional e atualização constante nas mais avançadas técnicas da odontologia mundial.'
+      title: "Formação que vai além",
+      description: "Busco constantemente o que há de mais avançado na odontologia mundial. Não por status — mas porque você merece o melhor que existe."
     },
     {
       icon: Heart,
-      title: 'Cuidado Genuíno',
-      description: 'Atendimento que prioriza seu conforto e bem-estar, com protocolos exclusivos para controle de ansiedade.'
+      title: "Você não é mais um paciente",
+      description: "Atendo com calma, escuta e atenção genuína. Sei que muitos chegam com medo ou insegurança — e isso faz parte do meu cuidado."
     },
     {
       icon: Sparkles,
-      title: 'Resultados Naturais',
-      description: 'Filosofia biomimética que busca a integração perfeita entre estética e funcionalidade.'
+      title: "Resultado que parece natural",
+      description: "Não entrego apenas um procedimento. Entrego harmonia entre estética e funcionalidade — um resultado que parece que sempre foi seu."
     },
     {
       icon: Shield,
-      title: 'Tecnologia de Ponta',
-      description: 'Consultório 100% digital, scanners intraorais e planejamento 3D para máxima previsibilidade.'
+      title: "Tecnologia a seu favor",
+      description: "Consultório totalmente digital, com scanner intraoral e planejamento 3D. Para que você veja o resultado antes mesmo de começar."
     }
   ];
 
@@ -46,15 +46,15 @@ export const WhyChoose = () => {
             transition={{ duration: shouldReduceMotion ? 0 : 0.8 }}
           >
             <span className="inline-block text-gold-bright text-xs font-semibold tracking-[0.3em] uppercase mb-6 text-shadow-sm">
-              Diferenciais Exclusivos
+              Meus Diferenciais
             </span>
 
             <h2 className="text-4xl md:text-5xl font-heading font-normal text-white mb-8 leading-tight text-shadow-img">
-              Por que nos <span className="italic text-gold-bright">escolher</span>?
+              O que me <span className="italic text-[#C9A84C]">diferencia</span>
             </h2>
 
-            <p className="text-white/90 text-lg font-normal leading-relaxed mb-12 text-shadow-sm">
-              Não entregamos apenas tratamentos odontológicos. Entregamos uma experiência de cuidado integral, onde cada detalhe é pensado para sua satisfação plena.
+            <p className="text-[#FFFFFF] text-lg font-light leading-[1.8] mb-12 text-shadow-sm" style={{ fontFamily: 'Poppins, sans-serif' }}>
+              Sou dentista porque acredito que cuidar de um sorriso é cuidar de uma pessoa inteira. Cada detalhe do meu consultório foi pensado para que você se sinta seguro, ouvido e bem cuidado.
             </p>
 
             <div className="hidden lg:block">

@@ -84,7 +84,7 @@ export const About = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: shouldReduceMotion ? 0 : 1, delay: shouldReduceMotion ? 0 : 0.2 }}
           >
-            <h4 className="text-gold text-xs font-semibold tracking-[0.2em] uppercase mb-4">Sobre o Doutor</h4>
+            <h4 className="text-gold text-xs font-semibold tracking-[0.2em] uppercase mb-4">Sobre mim</h4>
 
             <h2 className="text-4xl md:text-5xl font-heading font-normal text-[#0A2A43] mb-8 leading-tight">
               A união perfeita entre técnica e <span className="italic text-gold">humanidade</span>.
@@ -92,15 +92,15 @@ export const About = () => {
 
             <div className="space-y-6 text-[#2C3E50] leading-relaxed font-sans font-normal text-lg">
               <p>
-                Com mais de uma década de experiência clínica, o Dr. Rodrigo Silva consolidou uma filosofia de trabalho onde cada tratamento é uma obra de arte única.
+                Sou cirurgião-dentista com especialização em reabilitação oral e estética. Mas mais do que títulos, o que me move é a transformação que vejo nos meus pacientes quando eles redescobrem a confiança de sorrir.
               </p>
 
               <p>
-                Especialista em reabilitação oral e estética, sua abordagem integra as tecnologias mais avançadas da odontologia digital com um olhar artesanal e detalhista.
+                Cada consulta começa com escuta. Porque antes de qualquer tratamento, preciso entender o que você sente, o que te incomoda e o que você sonha para o seu sorriso.
               </p>
 
               <blockquote className="pl-6 border-l-2 border-gold py-2 my-8 text-[#0A2A43] font-heading text-2xl italic">
-                "Não tratamos apenas dentes. Restauramos a confiança para sorrir sem reservas."
+                "Não trato apenas dentes. Restauro a confiança para sorrir sem reservas."
               </blockquote>
             </div>
 

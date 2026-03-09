@@ -170,7 +170,7 @@ export const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: shouldReduceMotion ? 0 : 0.55, ease: EASE }}
           >
-            Cada sorriso é único e merece um cuidado exclusivo. Do tratamento dental à harmonia do seu rosto, venha descobrir o que posso fazer por você.
+            Cada sorriso esconde uma história. Estou aqui para cuidar da sua com técnica, dedicação e um olhar humano que vai além do dente.
           </m.p>
 
           {/* Estatísticas */}
@@ -213,7 +213,7 @@ export const Hero = () => {
               onClick={() => scrollToSection('contact')}
               className="w-full sm:w-auto"
             >
-              Agendar Consulta <ArrowRight size={14} />
+              Agendar Minha Consulta <ArrowRight size={14} />
             </Button>
 
             <Button
@@ -221,7 +221,7 @@ export const Hero = () => {
               onClick={() => scrollToSection('services')}
               className="w-full sm:w-auto"
             >
-              Conhecer Tratamentos
+              Conhecer os Serviços
             </Button>
           </m.div>
 

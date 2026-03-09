@@ -25,7 +25,7 @@ export const Footer = () => {
               Dr. Rodrigo Silva
             </h3>
             <p className="text-white/80 text-sm mb-6">
-              Odontologia de precisão com estética refinada e cuidado humano.
+              Cuidando do seu sorriso com precisão e empatia.
             </p>
             <div className="flex space-x-4">
               <a

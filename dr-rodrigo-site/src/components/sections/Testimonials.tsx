@@ -28,15 +28,15 @@ export const Testimonials = () => {
           className="text-center mb-16"
         >
           <span className="inline-block text-gold-bright text-xs font-semibold tracking-[0.3em] uppercase mb-4 text-shadow-sm">
-            Depoimentos
+            Quem já transformou o sorriso
           </span>
 
           <h2 className="text-3xl md:text-5xl font-heading font-normal text-white mb-6 leading-tight text-shadow-img">
-            Histórias de <span className="italic text-gold-bright">transformação</span>
+            O que dizem sobre <span className="italic text-gold-bright">mim</span>
           </h2>
 
           <p className="text-lg text-white/90 max-w-2xl mx-auto font-normal text-shadow-sm">
-            A satisfação de cada paciente é nossa maior conquista e inspiração diária.
+            A satisfação de cada paciente é minha maior conquista e inspiração diária.
           </p>
         </m.div>
 
