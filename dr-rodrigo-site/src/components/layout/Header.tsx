@@ -55,8 +55,8 @@ export const Header = () => {
   return (
     <m.header
       className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-500 border-b ${isScrolled
-          ? 'bg-[#0A2A43] border-white/10 py-3 shadow-xl'
-          : 'bg-transparent border-transparent py-5'
+        ? 'bg-[#0A2A43] border-white/10 py-3 shadow-xl'
+        : 'bg-transparent border-transparent py-5'
         }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -133,14 +133,8 @@ export const Header = () => {
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
             >
-              <div className="p-8 flex justify-end">
-                <button
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-white/50 hover:text-white transition-colors"
-                >
-                  <X strokeWidth={1} size={32} />
-                </button>
-              </div>
+              {/* Espaçador para compensar a altura do header fixo no mobile */}
+              <div className="h-24 md:h-28" />
 
               <div className="flex flex-col px-8 gap-8">
                 <nav className="flex flex-col gap-6">
