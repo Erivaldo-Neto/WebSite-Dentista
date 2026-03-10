@@ -67,7 +67,7 @@ export const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo Area */}
           <div
-            className="relative cursor-pointer group z-50 h-10 md:h-12 flex items-center min-w-[140px] sm:min-w-[180px] md:min-w-[380px] overflow-visible"
+            className="relative cursor-pointer group z-50 h-11 md:h-12 flex items-center min-w-[160px] sm:min-w-[180px] md:min-w-[380px] overflow-visible"
             onClick={() => scrollToSection('hero')}
             role="link"
             tabIndex={0}
@@ -77,7 +77,7 @@ export const Header = () => {
             <ResponsiveImage
               baseName="images/logo-rodrigo"
               alt="Dr. Rodrigo Silva Logo"
-              className="absolute left-0 sm:left-[-10px] md:left-0 top-1/2 -translate-y-1/2 h-[140px] sm:h-[180px] md:h-[280px] max-w-none w-auto transition-all duration-300 group-hover:scale-[1.03] pointer-events-none"
+              className="absolute left-0 sm:left-[-10px] md:left-0 top-1/2 -translate-y-1/2 h-[165px] sm:h-[180px] md:h-[280px] max-w-none w-auto transition-all duration-300 group-hover:scale-[1.03] pointer-events-none"
               eager
               width={280}
               height={120}
