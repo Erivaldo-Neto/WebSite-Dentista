@@ -340,7 +340,11 @@ export function Services() {
     const xRef = useRef(0)
     const rafRef = useRef<number | null>(null)
     const lastTsRef = useRef<number | null>(null)
-    const trackRef = useRef<HTMLDivElement>(null)
+    const desktopTrackRef = useRef<HTMLDivElement>(null)
+    const mobileTrackRef = useRef<HTMLDivElement>(null)
+    const isMobileRef = useRef(false)
+    const sectionRef = useRef<HTMLElement>(null)
+    const isVisibleRef = useRef(true)
     const isPausedRef = useRef(false)
     const isDraggingRef = useRef(false)
     const startXRef = useRef(0)
@@ -350,18 +354,19 @@ export function Services() {
     const PX_PER_MS = TOTAL_WIDTH / DURATION_PER_CYCLE_MS
 
     const tick = useCallback((ts: number) => {
-        if (!isPausedRef.current && lastTsRef.current !== null) {
+        if (isVisibleRef.current && !isPausedRef.current && lastTsRef.current !== null) {
             const delta = ts - lastTsRef.current
             xRef.current -= delta * PX_PER_MS
-            // Loop adjustment
             if (xRef.current <= -TOTAL_WIDTH) xRef.current += TOTAL_WIDTH
-            if (trackRef.current) {
-                trackRef.current.style.transform = `translateX(${xRef.current}px)`
+            const trackEl = isMobileRef.current ? mobileTrackRef.current : desktopTrackRef.current
+            if (trackEl) {
+                trackEl.style.transform = `translateX(${xRef.current}px)`
             }
         }
         lastTsRef.current = ts
+        // Apenas agenda o próximo frame se estiver visível para economizar CPU/Bateria
         rafRef.current = requestAnimationFrame(tick)
-    }, [PX_PER_MS, TOTAL_WIDTH])
+    }, [PX_PER_MS])
 
     useEffect(() => {
         rafRef.current = requestAnimationFrame(tick)
@@ -369,10 +374,26 @@ export function Services() {
     }, [tick])
 
     useEffect(() => {
-        const check = () => setIsMobile(window.innerWidth < 768)
+        const check = () => {
+            const mobile = window.innerWidth < 768
+            setIsMobile(mobile)
+            isMobileRef.current = mobile
+        }
         check()
         window.addEventListener('resize', check)
         return () => window.removeEventListener('resize', check)
+    }, [])
+
+    // Pause RAF when section is scrolled out of view (saves CPU/battery)
+    useEffect(() => {
+        const el = sectionRef.current
+        if (!el) return
+        const observer = new IntersectionObserver(
+            ([entry]) => { isVisibleRef.current = entry.isIntersecting },
+            { threshold: 0 }
+        )
+        observer.observe(el)
+        return () => observer.disconnect()
     }, [])
 
     const handleExpand = (rawIndex: number) => {
@@ -414,12 +435,12 @@ export function Services() {
         startXRef.current = clientX
 
         xRef.current += delta
-        // Manter dentro do range [ -TOTAL_WIDTH, 0 ]
         if (xRef.current > 0) xRef.current -= TOTAL_WIDTH
         if (xRef.current <= -TOTAL_WIDTH) xRef.current += TOTAL_WIDTH
 
-        if (trackRef.current) {
-            trackRef.current.style.transform = `translateX(${xRef.current}px)`
+        const trackEl = isMobileRef.current ? mobileTrackRef.current : desktopTrackRef.current
+        if (trackEl) {
+            trackEl.style.transform = `translateX(${xRef.current}px)`
         }
     }
 
@@ -443,6 +464,7 @@ export function Services() {
     return (
         <section
             id="services"
+            ref={sectionRef}
             style={{
                 background: `
           radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.06) 0%, transparent 60%),
@@ -513,7 +535,7 @@ export function Services() {
 
                     {/* Faixa de cards */}
                     <div
-                        ref={trackRef}
+                        ref={desktopTrackRef}
                         style={{
                             display: 'flex',
                             gap: `${CARD_GAP}px`,
@@ -551,9 +573,9 @@ export function Services() {
                         background: 'linear-gradient(to left, #0A2A43 0%, transparent 100%)',
                         zIndex: 30, pointerEvents: 'none'
                     }} />
-                    {/* Mesma faixa de cards: usa o mesmo trackRef do desktop */}
+                    {/* Faixa de cards mobile */}
                     <div
-                        ref={trackRef}
+                        ref={mobileTrackRef}
                         style={{
                             display: 'flex',
                             gap: `${CARD_GAP}px`,
@@ -576,10 +598,13 @@ export function Services() {
                 display: 'flex', justifyContent: 'center', gap: '8px',
                 marginTop: '32px', position: 'relative', zIndex: 1
             }}>
-                {services.map((_, i) => (
+                {services.map((svc, i) => (
                     <button
                         key={i}
                         onClick={() => handleExpand(i)}
+                        aria-label={`Ver detalhes do serviço: ${svc.title}`}
+                        aria-pressed={expandedIndex === i}
+                        title={svc.title}
                         style={{
                             width: expandedIndex === i ? '24px' : '8px',
                             height: '8px', borderRadius: '4px',

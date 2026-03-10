@@ -42,6 +42,8 @@ export const Hero = () => {
           alt="Consultório Odontológico"
           className="w-full h-full object-cover object-[50%_35%] opacity-70"
           eager
+          width={1920}
+          height={1080}
         />
       </m.div>
 
@@ -76,22 +78,25 @@ export const Hero = () => {
 
       {/* ─── DR. RODRIGO — MOBILE ──────────────────────────────────── */}
       <div
-        className="absolute z-10 md:hidden rodrigo-image"
+        className="absolute z-10 md:hidden rodrigo-image overflow-hidden"
         style={{
-          top: '0px',
+          top: 0,
           left: '50%',
-          transform: 'translateX(-50%) scale(1.6)',
-          height: '65%',
+          transform: 'translateX(-50%)',
+          height: '60%',
+          width: '100%',
+          maxHeight: '450px',
           filter: 'drop-shadow(0 0 20px rgba(0,0,0,0.3))',
-          transformOrigin: 'top center'
         }}
       >
-        <ResponsiveImage
-          baseName="images/rodrigo-HeroSection"
-          alt="Dr. Rodrigo Silva"
-          className="h-full w-auto object-contain object-top"
-          eager
-        />
+        <div className="relative w-full h-full">
+          <ResponsiveImage
+            baseName="images/rodrigo-HeroSection"
+            alt="Dr. Rodrigo Silva"
+            className="h-full w-full object-contain object-top scale-[1.3] origin-top"
+            eager
+          />
+        </div>
       </div>
 
       {/* ─── DR. RODRIGO — DESKTOP ─────────────────────────────────── */}
@@ -108,6 +113,8 @@ export const Hero = () => {
             alt="Dr. Rodrigo Silva"
             className="h-full w-auto object-contain object-bottom"
             eager
+            width={800}
+            height={1000}
           />
         </div>
       </m.div>
@@ -129,12 +136,12 @@ export const Hero = () => {
             style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontWeight: 400,
-              fontSize: 'clamp(28px, 4.5vw, 48px)', // Ajustado para evitar quebras em mobile
+              fontSize: 'clamp(28px, 4.5vw, 48px)',
               lineHeight: 1.2,
               maxWidth: '600px',
               marginBottom: '20px',
-              marginTop: '100px',
-              textAlign: isMobile ? 'left' : 'justify', // Mudado para left no mobile para evitar espaços grandes
+              marginTop: 'clamp(60px, 10vh, 100px)',
+              textAlign: 'left',
               hyphens: 'none',
               wordBreak: 'keep-all',
               overflowWrap: 'anywhere'
@@ -162,9 +169,9 @@ export const Hero = () => {
               fontWeight: 400,
               fontSize: 'clamp(14px, 1.3vw, 15px)',
               lineHeight: 1.7,
-              maxWidth: '580px', // Aumentado para alinhar com o bloco do título
+              maxWidth: '580px',
               marginBottom: '28px',
-              textAlign: 'justify', // Justificado conforme solicitado
+              textAlign: 'left',
             }}
             initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}

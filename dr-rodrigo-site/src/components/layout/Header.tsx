@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
-import { Menu, X, Phone, Calendar } from 'lucide-react';
+import { Menu, X, Phone, Calendar, ArrowRight } from 'lucide-react';
 import { ResponsiveImage } from '../ui/ResponsiveImage';
+import { Button } from '../ui/Button';
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -66,29 +67,39 @@ export const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo Area */}
           <div
-            className="relative cursor-pointer group z-50 h-10 md:h-12 flex items-center min-w-[200px] md:min-w-[380px]"
+            className="relative cursor-pointer group z-50 h-10 md:h-12 flex items-center min-w-[140px] sm:min-w-[180px] md:min-w-[380px] overflow-visible"
             onClick={() => scrollToSection('hero')}
+            role="link"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && scrollToSection('hero')}
+            aria-label="Ir para o início"
           >
             <ResponsiveImage
               baseName="images/logo-rodrigo"
               alt="Dr. Rodrigo Silva Logo"
-              className="absolute left-[-25px] md:left-0 top-1/2 -translate-y-1/2 h-[180px] md:h-[280px] max-w-none w-auto transition-all duration-300 group-hover:scale-[1.03] pointer-events-none"
+              className="absolute left-0 sm:left-[-10px] md:left-0 top-1/2 -translate-y-1/2 h-[140px] sm:h-[180px] md:h-[280px] max-w-none w-auto transition-all duration-300 group-hover:scale-[1.03] pointer-events-none"
               eager
+              width={280}
+              height={120}
             />
           </div>
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-10">
             {menuItems.map((item) => (
-              <button
+              <a
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
+                href={`#${item.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(item.id);
+                }}
                 onMouseEnter={() => prefetchSection(item.id)}
                 className="text-white hover:text-gold-bright text-[11px] uppercase tracking-[0.2em] font-medium transition-all duration-300 py-2 relative group"
               >
                 {item.label}
                 <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-gold-bright transition-all duration-300 group-hover:w-full"></span>
-              </button>
+              </a>
             ))}
           </nav>
 
@@ -139,22 +150,32 @@ export const Header = () => {
               <div className="flex flex-col px-8 gap-8">
                 <nav className="flex flex-col gap-6">
                   {menuItems.map((item, i) => (
-                    <m.button
+                    <m.a
                       key={item.id}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 + (i * 0.1) }}
-                      onClick={() => scrollToSection(item.id)}
+                      href={`#${item.id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollToSection(item.id);
+                      }}
                       className="text-left text-2xl font-heading text-white hover:text-gold transition-colors"
                     >
                       {item.label}
-                    </m.button>
+                    </m.a>
                   ))}
                 </nav>
 
                 <div className="w-full h-px bg-white/10 my-4" />
 
-
+                <Button
+                  variant="primary"
+                  onClick={() => scrollToSection('contact')}
+                  className="w-full"
+                >
+                  Agendar Consulta <ArrowRight size={14} />
+                </Button>
               </div>
             </m.div>
           </>

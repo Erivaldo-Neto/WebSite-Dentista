@@ -33,15 +33,16 @@ export const Locations = () => {
 
         {/* MAPA — lado esquerdo */}
         <m.div
-          className="w-full lg:w-1/2 h-[360px] lg:h-[620px]"
+          className="w-full lg:w-1/2 h-[360px] lg:h-[620px] rounded-2xl overflow-hidden"
           initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
+          whileHover={{ scale: 1.02 }}
         >
           {/* Container do mapa transparente */}
           <div
-            className="w-full h-full relative"
+            className="w-full h-full relative z-10"
             style={{
               background: 'transparent'
             }}
@@ -91,57 +92,68 @@ export const Locations = () => {
                 onMouseEnter={() => setHoveredId(location.id)}
                 onMouseLeave={() => setHoveredId(null)}
                 onClick={() => setActiveId(isActive ? null : location.id)}
-                className="cursor-pointer rounded-xl p-6 transition-all duration-400"
+                className="cursor-pointer rounded-2xl glow-effect"
                 style={{
-                  background: isActive ? '#0A2A43' : '#FFFFFF',
-                  border: isActive
-                    ? '1px solid rgba(201,168,76,0.5)'
-                    : '1px solid rgba(10,42,67,0.1)',
-                  boxShadow: isActive
-                    ? '0 8px 32px rgba(10,42,67,0.2), 0 0 0 1px rgba(201,168,76,0.2)'
-                    : '0 2px 12px rgba(0,0,0,0.06)',
-                }}
+                  position: 'relative',
+                  zIndex: 10,
+                  '--glow-thickness': '4px',
+                  '--glow-inset': '-3px'
+                } as React.CSSProperties}
               >
-                <div className="flex items-start gap-4">
-                  <div
-                    className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center"
-                    style={{ background: isActive ? 'rgba(201,168,76,0.15)' : 'rgba(10,42,67,0.06)' }}
-                  >
-                    <MapPin size={18} color="#C9A84C" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-baseline gap-3">
-                      <h3 style={{
-                        fontFamily: 'Montserrat',
-                        fontWeight: 600,
-                        fontSize: '18px',
-                        color: isActive ? '#FFFFFF' : '#0A2A43'
-                      }}>
-                        {location.city}
-                      </h3>
-                      <span className="font-sans text-[11px] uppercase tracking-[0.2em] text-gold-bright">
-                        {location.neighborhood}
-                      </span>
+                <div
+                  className="w-full h-full p-6 rounded-[inherit] glow-effect-inner"
+                  style={{
+                    background: isActive ? '#0A2A43' : '#FFFFFF',
+                    border: isActive
+                      ? '1px solid rgba(201,168,76,0.3)'
+                      : '1px solid rgba(10,42,67,0.05)',
+                  }}
+                >
+
+
+                  <div className="flex items-start gap-4">
+                    <div
+                      className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center icon-scale"
+                      style={{ background: isActive ? 'rgba(201,168,76,0.15)' : 'rgba(10,42,67,0.06)' }}
+                    >
+                      <MapPin size={18} color="#C9A84C" />
                     </div>
-                    <p style={{
-                      fontFamily: 'Montserrat',
-                      fontWeight: 300,
-                      fontSize: '14px',
-                      color: isActive ? 'rgba(255,255,255,0.8)' : '#0A2A43',
-                      marginTop: '6px'
-                    }}>
-                      {location.address}
-                    </p>
-                    <div className="flex items-center gap-2 mt-3">
-                      <Clock size={13} color="#C9A84C" />
-                      <span style={{
+                    <div className="flex-1">
+                      <div className="flex items-baseline gap-3">
+                        <h3 style={{
+                          fontFamily: 'Montserrat',
+                          fontWeight: 600,
+                          fontSize: '18px',
+                          color: isActive ? '#FFFFFF' : '#0A2A43'
+                        }}>
+                          {location.city}
+                        </h3>
+                        <span className="font-sans text-[11px] uppercase tracking-[0.2em] text-gold-bright">
+                          {location.neighborhood}
+                        </span>
+                      </div>
+                      <p style={{
                         fontFamily: 'Montserrat',
                         fontWeight: 300,
-                        fontSize: '13px',
-                        color: isActive ? 'rgba(255,255,255,0.7)' : '#0A2A43'
+                        fontSize: '14px',
+                        color: isActive ? 'rgba(255,255,255,0.8)' : '#0A2A43',
+                        marginTop: '6px'
                       }}>
-                        {location.hours}
-                      </span>
+                        {location.address}
+                      </p>
+                      <div className="flex items-center gap-2 mt-3">
+                        <div className="icon-scale flex items-center gap-2">
+                          <Clock size={13} color="#C9A84C" />
+                        </div>
+                        <span style={{
+                          fontFamily: 'Montserrat',
+                          fontWeight: 300,
+                          fontSize: '13px',
+                          color: isActive ? 'rgba(255,255,255,0.7)' : '#0A2A43'
+                        }}>
+                          {location.hours}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>

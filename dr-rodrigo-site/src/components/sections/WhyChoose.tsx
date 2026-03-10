@@ -53,7 +53,7 @@ export const WhyChoose = () => {
               O que me <span className="italic text-[#C9A84C]">diferencia</span>
             </h2>
 
-            <p className="text-[#FFFFFF] text-lg font-light leading-[1.8] mb-12 text-shadow-sm" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            <p className="text-[#FFFFFF] text-lg font-light leading-[1.8] mb-12 text-shadow-sm font-sans">
               Sou dentista porque acredito que cuidar de um sorriso é cuidar de uma pessoa inteira. Cada detalhe do meu consultório foi pensado para que você se sinta seguro, ouvido e bem cuidado.
             </p>
 
@@ -83,23 +83,29 @@ export const WhyChoose = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: shouldReduceMotion ? 0 : 0.5, delay: shouldReduceMotion ? 0 : index * 0.1 }}
-                className="group relative p-8 rounded-sm bg-white/5 border border-white/10 hover:border-gold/30 hover:bg-white/10 transition-all duration-500"
+                className="group relative glow-effect rounded-2xl overflow-visible"
+                style={{ 
+                  '--glow-thickness': '4.5px', 
+                  '--glow-inset': '-3.5px' 
+                } as React.CSSProperties}
               >
-                <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <ArrowRight size={20} className="text-gold -rotate-45" />
+                <div className="glow-effect-inner bg-[#0A2A43] border border-white/10 p-8 h-full">
+                  <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <ArrowRight size={20} className="text-gold -rotate-45" />
+                  </div>
+
+                  <div className="w-12 h-12 mb-6 rounded-full bg-white flex items-center justify-center shadow-lg icon-scale">
+                    <reason.icon size={24} className="text-gold" strokeWidth={2} />
+                  </div>
+
+                  <h3 className="text-xl font-sans font-semibold text-white mb-3 group-hover:text-gold transition-colors duration-300">
+                    {reason.title}
+                  </h3>
+
+                  <p className="text-white/80 font-normal text-sm leading-relaxed">
+                    {reason.description}
+                  </p>
                 </div>
-
-                <div className="w-12 h-12 mb-6 rounded-full bg-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
-                  <reason.icon size={24} className="text-gold" strokeWidth={2} />
-                </div>
-
-                <h3 className="text-xl font-sans font-semibold text-white mb-3 group-hover:text-gold transition-colors duration-300">
-                  {reason.title}
-                </h3>
-
-                <p className="text-white/80 font-normal text-sm leading-relaxed">
-                  {reason.description}
-                </p>
               </m.div>
             ))}
           </div>

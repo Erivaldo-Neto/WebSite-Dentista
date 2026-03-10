@@ -3,47 +3,62 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="description"
-    content="Dr. Rodrigo Silva - Odontologia de precisão com cuidado humano. Especialista em ortodontia, implantes, estética dental e harmonização orofacial." />
-  <meta name="keywords"
-    content="dentista, odontologia, ortodontia, implantes dentários, estética dental, harmonização orofacial, São Paulo, Campinas, Santos" />
-  <meta name="author" content="Dr. Rodrigo Silva" />
+    content="Dr. Rodrigo Silva — Cirurgião-dentista especialista em odontologia estética, implantes e harmonização orofacial. Agende sua avaliação e transforme seu sorriso." />
+  <meta name="theme-color" content="#0A2A43" />
+  <link rel="canonical" href="https://drrodrigosilva.netlify.app/" />
 
-  <meta property="og:title" content="Dr. Rodrigo Silva - Odontologia Premium" />
-  <meta property="og:description" content="Transforme seu sorriso com tratamentos avançados e resultados naturais" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Dr. Rodrigo Silva — Odontologia Premium" />
+  <meta property="og:description" content="Cuido do seu sorriso com a precisão e a humanidade que ele merece. Especialista em implantes e estética." />
+  <meta property="og:image" content="/og-image.jpg" />
+  <meta property="og:url" content="https://drrodrigosilva.netlify.app/" />
   <meta property="og:type" content="website" />
 
-  <title>Dr. Rodrigo Silva</title>
+  <title>Dr. Rodrigo Silva — Odontologia Premium</title>
 
-  <!-- Preconnect antes de tudo -->
+  <!-- Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- Carregar apenas os pesos usados no site -->
-  <link rel="preload" as="style"
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@400;500;600;700&display=swap">
-
+  <!-- Google Fonts -->
   <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@400;500;600;700&display=swap"
-    media="print" onload="this.media='all'">
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap">
 
-  <!-- Preload Hero Background para LCP - Versões Responsivas -->
+  <!-- LCP Preloads -->
   <link rel="preload" as="image" href="/images/background-herosection-lg.webp" imagesrcset="/images/background-herosection-sm.webp 768w,
                    /images/background-herosection-md.webp 1280w,
                    /images/background-herosection-lg.webp 1920w" fetchpriority="high">
 
-  <!-- Preload Hero Rodrigo Image para LCP -->
   <link rel="preload" as="image" href="/images/rodrigo-HeroSection-lg.webp" imagesrcset="/images/rodrigo-HeroSection-sm.webp 768w,
                    /images/rodrigo-HeroSection-md.webp 1280w,
                    /images/rodrigo-HeroSection-lg.webp 1920w" fetchpriority="high">
 
-  <!-- Fallback para JS desabilitado -->
-  <noscript>
-    <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@400;500;600;700&display=swap">
-  </noscript>
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dentist",
+    "name": "Dr. Rodrigo Silva",
+    "description": "Cirurgião-dentista especialista em odontologia estética, implantes e harmonização orofacial",
+    "url": "https://drrodrigosilva.netlify.app",
+    "telephone": "+55-00-00000-0000",
+    "address": [
+      {
+        "@type": "PostalAddress",
+        "streetAddress": "Av. Boa Viagem, 1616 - Conjunto 82",
+        "addressLocality": "Recife",
+        "addressRegion": "PE",
+        "addressCountry": "BR"
+      }
+    ],
+    "priceRange": "$$",
+    "openingHours": "Mo-Fr 08:00-18:00"
+  }
+  </script>
 </head>
 
 <body>

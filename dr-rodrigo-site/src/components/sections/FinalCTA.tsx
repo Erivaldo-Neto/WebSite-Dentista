@@ -58,8 +58,8 @@ export const FinalCTA = () => {
               <div className="w-12 h-12 mb-6 rounded-full bg-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
                 <MapPin size={24} className="text-gold" strokeWidth={2} />
               </div>
-              <h4 className="text-white text-lg font-sans font-semibold mb-2">Jardins - SP</h4>
-              <p className="text-white/75 text-sm font-normal">Rua Oscar Freire, 1234<br />Ed. Premium, Sala 501</p>
+              <h4 className="text-white text-lg font-sans font-semibold mb-2">São Paulo - SP</h4>
+              <p className="text-white/75 text-sm font-normal">Rua Augusta, 2150<br />Conjunto 83, Jardins</p>
             </div>
 
             <div className="p-6 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm hover:border-gold/30 transition-colors duration-300 group">
@@ -67,7 +67,7 @@ export const FinalCTA = () => {
                 <Calendar size={24} className="text-gold" strokeWidth={2} />
               </div>
               <h4 className="text-white text-lg font-sans font-semibold mb-2">Horários</h4>
-              <p className="text-white/75 text-sm font-normal">Seg a Sex: 08h - 20h<br />Sábado: 09h - 14h</p>
+              <p className="text-white/75 text-sm font-normal">Seg a Sex: 08h - 18h<br />Sábado: Mediante agendamento</p>
             </div>
 
             <div className="p-6 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm hover:border-gold/30 transition-colors duration-300 group">
@@ -75,7 +75,7 @@ export const FinalCTA = () => {
                 <Mail size={24} className="text-gold" strokeWidth={2} />
               </div>
               <h4 className="text-white text-lg font-sans font-semibold mb-2">Contato Online</h4>
-              <p className="text-white/75 text-sm font-normal">contato@drrodrigo.com.br<br />Resposta em até 24h</p>
+              <p className="text-white/75 text-sm font-normal">contato@drrodrigosilva.com.br<br />Resposta em até 24h</p>
             </div>
           </div>
         </m.div>

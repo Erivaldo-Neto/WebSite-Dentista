@@ -66,6 +66,8 @@ export const About = () => {
                   baseName="images/rodrigo-sobresection"
                   alt="Dr. Rodrigo Silva"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  width={600}
+                  height={750}
                 />
 
                 {/* Overlay de Gradiente Suave */}
@@ -112,20 +114,26 @@ export const About = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: shouldReduceMotion ? 0 : 0.5, delay: shouldReduceMotion ? 0 : 0.4 + index * 0.1 }}
-                  className="flex items-start gap-4"
+                  className="glow-effect rounded-2xl overflow-visible"
+                  style={{ 
+                    '--glow-thickness': '2.5px', 
+                    '--glow-inset': '-1.5px' 
+                  } as React.CSSProperties}
                 >
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 rounded-full flex items-center justify-center bg-[#0A2A43] shadow-md">
-                      <value.icon className="text-gold-bright" size={24} strokeWidth={1.5} />
+                  <div className="glow-effect-inner bg-[#F8FAFC] border border-gold/10 p-5 flex items-start gap-4 h-full">
+                    <div className="flex-shrink-0">
+                      <div className="w-12 h-12 rounded-full flex items-center justify-center bg-[#0A2A43] shadow-md icon-scale">
+                        <value.icon className="text-gold-bright" size={24} strokeWidth={1.5} />
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <h4 className="font-sans font-semibold text-lg text-[#0A2A43] mb-1">
-                      {value.title}
-                    </h4>
-                    <p className="text-sm text-[#5A7080] font-normal leading-snug">
-                      {value.description}
-                    </p>
+                    <div>
+                      <h4 className="font-sans font-semibold text-lg text-[#0A2A43] mb-1">
+                        {value.title}
+                      </h4>
+                      <p className="text-sm text-[#5A7080] font-normal leading-snug">
+                        {value.description}
+                      </p>
+                    </div>
                   </div>
                 </m.div>
               ))}

@@ -478,6 +478,131 @@
   .text-shadow-sm {
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   }
+
+  /* ── NOVO EFEITO GOLDEN GLOW LED (Borda Animada) ── */
+  @property --glow-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  :root {
+    --glow-thickness: 3px;
+    --glow-blur: 20px;
+    --glow-inset: -2px;
+  }
+
+  .glow-effect {
+    position: relative;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease;
+    z-index: 1;
+  }
+
+  /* Efeito de "Saltar" Máximo e Profissional */
+  .glow-effect:hover {
+    transform: scale(1.05) translateY(-12px);
+    box-shadow: 0 40px 80px -15px rgba(10, 42, 67, 0.25);
+    z-index: 30;
+  }
+
+  /* Ícones internos tambem dão um "pop" */
+  .glow-effect:hover .icon-scale {
+    transform: scale(1.15) rotate(8deg);
+  }
+
+  .icon-scale {
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .glow-effect-inner {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    overflow: hidden;
+  }
+
+  /* O LED ultra-fino e elegante que percorre a borda */
+  .glow-effect::before {
+    content: "";
+    position: absolute;
+    inset: var(--glow-inset); 
+    padding: var(--glow-thickness);
+    z-index: 2;
+    border-radius: inherit;
+    background: conic-gradient(
+      from var(--glow-angle),
+      transparent 0deg,
+      transparent 15deg,
+      #C9A84C 40deg,
+      #FFFFFF 60deg, /* Centro puro para brilho */
+      #C9A84C 80deg,
+      transparent 120deg,
+      transparent 360deg
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+  }
+
+  /* Aura de brilho em volta do card */
+  .glow-effect::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: -20px;
+    border-radius: inherit;
+    background: conic-gradient(
+      from var(--glow-angle),
+      transparent 0deg,
+      rgba(201, 168, 76, 0.4) 60deg,
+      transparent 120deg
+    );
+    filter: blur(var(--glow-blur));
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+  }
+
+  .glow-effect:hover::before,
+  .glow-effect:hover::after {
+    opacity: 1;
+    animation: rotate-glow-property 2.5s linear infinite;
+  }
+
+  @keyframes rotate-glow-property {
+    from { --glow-angle: 0deg; }
+    to { --glow-angle: 360deg; }
+  }
+
+
+  /* Fallback para navegadores sem suporte a @property */
+  @supports not (background: paint(something)) {
+    .glow-effect:hover::before {
+      background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        #C9A84C 20deg,
+        #FFF5D6 45deg,
+        #C9A84C 70deg,
+        transparent 100deg
+      );
+      animation: rotate-glow-fallback 3s linear infinite;
+    }
+    
+    @keyframes rotate-glow-fallback {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  }
+
+
+
+
 }
 
 .reveal {
@@ -520,4 +645,215 @@
     /* nunca estica — corta com proporção */
     object-position: center;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   JORNADA DE ATENDIMENTO
+═══════════════════════════════════════════════════════════════ */
+.journey-section {
+  background: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+}
+
+.journey-section::before {
+  content: '';
+  position: absolute;
+  right: -80px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 400px;
+  height: 400px;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 5 C30 5 15 20 15 38 C15 52 20 62 25 75 C30 88 35 108 50 108 C65 108 70 88 75 75 C80 62 85 52 85 38 C85 20 70 5 50 5Z' fill='none' stroke='%23C9A84C' stroke-width='2' opacity='0.08'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  pointer-events: none;
+}
+
+.journey-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #C9A84C, #D4AF37, #C9A84C, transparent);
+}
+
+.journey-step-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 16px;
+  padding: 28px 24px;
+  box-shadow: 0 4px 24px rgba(10,42,67,0.08);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.journey-step-card:hover {
+  border-color: rgba(201,168,76,0.6);
+  box-shadow: 0 8px 40px rgba(10,42,67,0.12);
+  transform: translateY(-4px);
+}
+
+.journey-highlight {
+  background: rgba(201,168,76,0.08);
+  border-left: 3px solid #C9A84C;
+  border-radius: 0 4px 4px 0;
+  padding: 6px 12px;
+  color: #C9A84C;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  margin-top: 16px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SAÚDE BUCAL
+═══════════════════════════════════════════════════════════════ */
+.oral-health-section {
+  background: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+}
+
+.oral-health-section::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,0.08);
+  box-shadow:
+    0 0 0 60px rgba(201,168,76,0.04),
+    0 0 0 120px rgba(201,168,76,0.03),
+    0 0 0 180px rgba(201,168,76,0.02);
+  pointer-events: none;
+}
+
+.oral-health-section::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, transparent, #C9A84C, #D4AF37, #C9A84C, transparent);
+}
+
+.benefit-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  border-top: 3px solid #C9A84C;
+  padding: 36px 28px;
+  box-shadow: 0 8px 40px rgba(10,42,67,0.08);
+  transition: all 0.35s ease;
+  height: 100%;
+}
+
+.benefit-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 60px rgba(10,42,67,0.14);
+  border-top-color: #D4AF37;
+}
+
+.benefit-icon-wrapper {
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.06));
+  border: 1px solid rgba(201,168,76,0.25);
+  color: #C9A84C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PERGUNTAS FREQUENTES (FAQ)
+═══════════════════════════════════════════════════════════════ */
+.faq-section {
+  background: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+}
+
+.faq-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(201,168,76,0.12) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.faq-section::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #C9A84C, #D4AF37, #C9A84C, transparent);
+}
+
+.faq-item {
+  border: 1px solid rgba(10,42,67,0.1);
+  border-radius: 12px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: #FFFFFF;
+  position: relative;
+  z-index: 2;
+}
+
+.faq-item:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 30px rgba(10,42,67,0.08);
+  border-color: rgba(201,168,76,0.25);
+}
+
+.faq-item.active {
+  border-color: rgba(201,168,76,0.4);
+  box-shadow: 0 4px 24px rgba(10,42,67,0.08);
+}
+
+.faq-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 28px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  color: #0A2A43;
+  gap: 16px;
+}
+
+.faq-icon {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,0.4);
+  background: rgba(201,168,76,0.06);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  color: #C9A84C;
+  transition: all 0.3s ease;
+}
+
+.faq-item.active .faq-icon {
+  background: #C9A84C;
+  color: #0A2A43;
+}
+
+.faq-answer {
+  padding: 0 28px 22px;
+  font-weight: 400;
+  font-size: 14px;
+  color: #0A2A43;
+  line-height: 1.85;
+  border-top: 1px solid rgba(201,168,76,0.15);
+  padding-top: 16px;
 }

@@ -11,6 +11,9 @@ const Testimonials = lazy(() => import('./components/sections/Testimonials').the
 const Office = lazy(() => import('./components/sections/Office').then(m => ({ default: m.Office })));
 const Locations = lazy(() => import('./components/sections/Locations').then(m => ({ default: m.Locations })));
 const WhyChoose = lazy(() => import('./components/sections/WhyChoose').then(m => ({ default: m.WhyChoose })));
+const Journey = lazy(() => import('./components/sections/Journey').then(m => ({ default: m.Journey })));
+const OralHealth = lazy(() => import('./components/sections/OralHealth').then(m => ({ default: m.OralHealth })));
+const FAQ = lazy(() => import('./components/sections/FAQ').then(m => ({ default: m.FAQ })));
 const FinalCTA = lazy(() => import('./components/sections/FinalCTA').then(m => ({ default: m.FinalCTA })));
 const Footer = lazy(() => import('./components/layout/Footer').then(m => ({ default: m.Footer })));
 
@@ -33,10 +36,17 @@ function App() {
             {/* Nova seção unificada de serviços com carrossel */}
             <Services />
 
+            <Journey />
+
+            <WhyChoose />
+
+            <OralHealth />
+
+            <FAQ />
+
             <Testimonials />
             <Office />
             <Locations />
-            <WhyChoose />
             <FinalCTA />
             <Footer />
           </Suspense>

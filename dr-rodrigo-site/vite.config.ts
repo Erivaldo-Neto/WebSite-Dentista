@@ -12,7 +12,7 @@ export default defineConfig({
       compress: {
         drop_console: true,
         drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info']
+        pure_funcs: ['console.log', 'console.info', 'console.debug']
       }
     },
     rollupOptions: {
@@ -24,8 +24,8 @@ export default defineConfig({
         }
       }
     },
-    chunkSizeWarningLimit: 500,
-    assetsInlineLimit: 4096, // arquivos menores que 4kb viram base64 inline
+    chunkSizeWarningLimit: 600,
+    assetsInlineLimit: 4096,
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'framer-motion'],

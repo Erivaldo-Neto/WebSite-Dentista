@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin } from 'lucide-react';
+import { ResponsiveImage } from '../ui/ResponsiveImage';
 
 export const Footer = () => {
   const specialties = [
@@ -21,10 +22,16 @@ export const Footer = () => {
       <div className="container-custom px-6 lg:px-20 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div>
-            <h3 className="text-2xl font-heading font-bold mb-4 text-gold-bright">
-              Dr. Rodrigo Silva
-            </h3>
-            <p className="text-white/80 text-sm mb-6">
+            <div className="relative h-24 -ml-3 mb-4 overflow-visible">
+              <ResponsiveImage
+                baseName="images/logo-rodrigo"
+                alt="Dr. Rodrigo Silva"
+                className="absolute top-1/2 -translate-y-1/2 left-0 h-[180px] w-auto max-w-none pointer-events-none"
+                width={200}
+                height={80}
+              />
+            </div>
+            <p className="text-white/80 text-sm mb-6 mt-2">
               Cuidando do seu sorriso com precisão e empatia.
             </p>
             <div className="flex space-x-4">
@@ -97,7 +104,7 @@ export const Footer = () => {
             </ul>
             <div className="mt-6">
               <p className="text-white/60 text-xs text-gold-bright/60">
-                CRO-SP 12345
+                CRO-SP 158.423
               </p>
             </div>
           </div>

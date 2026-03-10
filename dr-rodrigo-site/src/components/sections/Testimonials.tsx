@@ -23,7 +23,7 @@ export const Testimonials = () => {
         <m.div
           initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: shouldReduceMotion ? 0 : 0.8 }}
           className="text-center mb-16"
         >
@@ -46,31 +46,41 @@ export const Testimonials = () => {
               key={testimonial.id}
               initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, margin: "0px" }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: shouldReduceMotion ? 0 : index * 0.15 }}
+              className="glow-effect rounded-3xl"
+              style={{
+                position: 'relative',
+                zIndex: 10,
+                '--glow-thickness': '5px',
+                '--glow-inset': '-4px',
+                '--glow-blur': '30px'
+              } as React.CSSProperties}
             >
-              <div className="h-full p-8 rounded-sm bg-white/5 border border-white/5 backdrop-blur-sm hover:border-gold/20 transition-all duration-500 group flex flex-col">
-                <div className="mb-6">
-                  <Quote className="text-gold opacity-50" size={32} strokeWidth={1.5} />
+              <div className="h-full p-8 rounded-[inherit] bg-white glow-effect-inner flex flex-col shadow-lg">
+
+
+                <div className="mb-6 icon-scale">
+                  <Quote className="text-gold opacity-80" size={32} strokeWidth={1.5} />
                 </div>
 
                 <blockquote className="flex-grow mb-8">
-                  <p className="text-white/90 leading-relaxed font-normal text-lg">
+                  <p className="text-slate-900 leading-relaxed font-medium text-lg">
                     "{testimonial.text}"
                   </p>
                 </blockquote>
 
-                <div className="border-t border-white/5 pt-6 mt-auto">
+                <div className="border-t border-black/5 pt-6 mt-auto">
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gold to-[#B8963E] flex items-center justify-center text-[#0A2A43] font-bold font-sans text-xs">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gold to-[#B8963E] flex items-center justify-center text-white font-bold font-sans text-xs">
                       {testimonial.name.split(' ').map(n => n[0]).join('')}
                     </div>
                     <div>
-                      <div className="font-sans font-semibold text-white text-lg">
+                      <div className="font-sans font-bold text-slate-900 text-lg">
                         {testimonial.name}
                       </div>
                       {testimonial.treatment && (
-                        <div className="text-xs text-gold-bright uppercase tracking-[0.1em] font-semibold mt-1">
+                        <div className="text-xs text-gold font-bold uppercase tracking-[0.1em] mt-1">
                           {testimonial.treatment}
                         </div>
                       )}
