@@ -12,7 +12,7 @@
 
 @layer base {
   html {
-    @apply scroll-smooth;
+    scroll-behavior: auto !important;
     -webkit-overflow-scrolling: touch;
     overflow-x: hidden;
   }
@@ -856,4 +856,47 @@
   line-height: 1.85;
   border-top: 1px solid rgba(201,168,76,0.15);
   padding-top: 16px;
+}
+/* ---------------------------------------------------------------
+   LENIS & SCROLLBAR CUSTOMIZATION
+   --------------------------------------------------------------- */
+
+/* Scrollbar customizada combinando com a paleta do site */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0A2A43;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C9A84C;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}
+
+/* Garante que o Lenis funcione corretamente no corpo */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }

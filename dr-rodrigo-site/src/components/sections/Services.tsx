@@ -5,6 +5,7 @@ import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 import { services } from '../../data/services'
 import { BeforeAfterSlider } from '../ui/BeforeAfterSlider'
 import { Button } from '../ui/Button'
+import { getLenis } from '../../lib/lenis'
 
 const CARD_WIDTH = 300
 const CARD_GAP = 24
@@ -36,8 +37,12 @@ interface ExpandedCardProps {
 function ExpandedCard({ service, isMobile, onClose }: ExpandedCardProps) {
     // Bloquear scroll do body enquanto aberto
     useEffect(() => {
+        getLenis()?.stop()
         document.body.style.overflow = 'hidden'
-        return () => { document.body.style.overflow = '' }
+        return () => {
+            getLenis()?.start()
+            document.body.style.overflow = ''
+        }
     }, [])
 
     const leftPanel = (
@@ -70,7 +75,7 @@ function ExpandedCard({ service, isMobile, onClose }: ExpandedCardProps) {
                         width: '100%',
                         height: '100%',
                         objectFit: 'cover',
-                        objectPosition: 'center top',
+                        objectPosition: service.id === 'harmonizacao' && !isMobile ? 'center bottom' : 'center top',
                         display: 'block',
                     }}
                 />

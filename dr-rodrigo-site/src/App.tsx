@@ -1,7 +1,8 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { LazyMotion, domAnimation } from 'framer-motion';
 import { Header } from './components/layout/Header';
 import { Hero } from './components/sections/Hero';
+import { getLenis, destroyLenis } from './lib/lenis';
 import './styles/globals.css';
 
 // Lazy loading das seções abaixo do fold
@@ -22,6 +23,60 @@ const SectionLoader = () => (
 );
 
 function App() {
+  useEffect(() => {
+    const lenis = getLenis();
+    if (!lenis) return;
+
+    // Sincronizar com Framer Motion (dispara evento scroll nativo)
+    lenis.on('scroll', () => {
+      window.dispatchEvent(new Event('scroll'));
+    });
+
+    // Loop de animação — sincronizado com o frame rate da tela
+    function raf(time: number) {
+      lenis?.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    // Suavizar setas do teclado e teclas de navegação comuns
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignorar se o usuário estiver digitando em um input
+      if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') return;
+
+      const step = 120; // Tamanho do passo para setas
+      const keys: Record<string, number> = {
+        'ArrowUp': -step,
+        'ArrowDown': step,
+        'PageUp': -window.innerHeight * 0.8,
+        'PageDown': window.innerHeight * 0.8,
+        'Home': -lenis.scroll,
+        'End': document.body.scrollHeight,
+        ' ': window.innerHeight * 0.8 // Espaço para rolar para baixo
+      };
+
+      if (keys[e.key] !== undefined) {
+        e.preventDefault();
+        
+        // Se for Home ou End, usamos um scroll absoluto
+        if (e.key === 'Home' || e.key === 'End') {
+           lenis.scrollTo(keys[e.key], { duration: 1.5 });
+        } else {
+           // Scroll relativo para as outras teclas
+           lenis.scrollTo(lenis.scroll + keys[e.key], { lock: true });
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    const rafId = requestAnimationFrame(raf);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      cancelAnimationFrame(rafId);
+      destroyLenis();
+    };
+  }, []);
+
   return (
     <LazyMotion features={domAnimation} strict>
       <div className="min-h-screen">

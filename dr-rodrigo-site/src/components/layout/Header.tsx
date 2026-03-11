@@ -3,6 +3,7 @@ import { m, AnimatePresence } from 'framer-motion';
 import { Menu, X, Phone, Calendar, ArrowRight } from 'lucide-react';
 import { ResponsiveImage } from '../ui/ResponsiveImage';
 import { Button } from '../ui/Button';
+import { getLenis } from '../../lib/lenis';
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -11,7 +12,6 @@ export const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       // Ativa o background azul sólido quando sai da Hero Section
-      // Usamos a altura da janela (100vh) menos um pequeno offset para a transição
       setIsScrolled(window.scrollY > window.innerHeight - 100);
     };
     window.addEventListener('scroll', handleScroll);
@@ -21,7 +21,16 @@ export const Header = () => {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const lenis = getLenis();
+      if (lenis) {
+        lenis.scrollTo(element, {
+          offset: -80,
+          duration: 1.6,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        });
+      } else {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
       setIsMobileMenuOpen(false);
     }
   };
