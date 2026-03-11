@@ -18,8 +18,8 @@ export function getLenis(): Lenis | null {
       gestureOrientation: 'vertical', // Garante consistência em touchpads e telas touch
       smoothWheel: true,
       syncTouch: true,        // Fundamental para unificar o scroll do mobile/laptop com o desktop
-      touchMultiplier: 1.5,
-      wheelMultiplier: 1.2,   // Ligeiramente mais rápido para compensar a suavidade do lerp
+      touchMultiplier: 0.8,   // Reduzido para ser menos sensível no mobile (o padrão é 1.5-2)
+      wheelMultiplier: 1.0,   // Ajustado para um controle mais preciso
       autoResize: true,       // Observa mudanças no DOM automaticamente
       infinite: false,
     })
