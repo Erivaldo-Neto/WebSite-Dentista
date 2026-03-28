@@ -33,10 +33,12 @@ function App() {
     });
 
     // Loop de animação — sincronizado com o frame rate da tela
+    let rafId: number;
     function raf(time: number) {
       lenis?.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
+    rafId = requestAnimationFrame(raf);
 
     // Suavizar setas do teclado e teclas de navegação comuns
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -68,7 +70,6 @@ function App() {
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    const rafId = requestAnimationFrame(raf);
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);

@@ -12,9 +12,14 @@
 
 @layer base {
   html {
-    scroll-behavior: auto !important;
+    scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     overflow-x: hidden;
+  }
+
+  /* Quando o Lenis toma o controle, desativamos o scroll-behavior nativo para não conflitar */
+  html.lenis-smooth {
+    scroll-behavior: auto !important;
   }
 
   /* Eliminar delay de 300ms no tap em mobile */
