@@ -27,11 +27,6 @@ function App() {
     const lenis = getLenis();
     if (!lenis) return;
 
-    // Sincronizar com Framer Motion (dispara evento scroll nativo)
-    lenis.on('scroll', () => {
-      window.dispatchEvent(new Event('scroll'));
-    });
-
     // Loop de animação — sincronizado com o frame rate da tela
     let rafId: number;
     function raf(time: number) {
@@ -40,36 +35,49 @@ function App() {
     }
     rafId = requestAnimationFrame(raf);
 
+    // Sincronizar com outros componentes (dispara evento scroll nativo)
+    lenis.on('scroll', () => {
+      // Isso ajuda o Framer Motion e outros observers a detectarem o scroll
+      window.dispatchEvent(new Event('scroll'));
+    });
+
     // Suavizar setas do teclado e teclas de navegação comuns
     const handleKeyDown = (e: KeyboardEvent) => {
       // Ignorar se o usuário estiver digitando em um input
       if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') return;
 
-      const step = 120; // Tamanho do passo para setas
+      const step = 140; // Passo um pouco maior para Desktop
       const keys: Record<string, number> = {
         'ArrowUp': -step,
         'ArrowDown': step,
-        'PageUp': -window.innerHeight * 0.8,
-        'PageDown': window.innerHeight * 0.8,
+        'PageUp': -window.innerHeight * 0.9,
+        'PageDown': window.innerHeight * 0.9,
         'Home': -lenis.scroll,
         'End': document.body.scrollHeight,
-        ' ': window.innerHeight * 0.8 // Espaço para rolar para baixo
+        ' ': window.innerHeight * 0.8
       };
 
       if (keys[e.key] !== undefined) {
         e.preventDefault();
         
-        // Se for Home ou End, usamos um scroll absoluto
         if (e.key === 'Home' || e.key === 'End') {
-           lenis.scrollTo(keys[e.key], { duration: 1.5 });
+           lenis.scrollTo(e.key === 'Home' ? 0 : document.body.scrollHeight, { 
+             duration: 2,
+             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+           });
         } else {
-           // Scroll relativo para as outras teclas
-           lenis.scrollTo(lenis.scroll + keys[e.key], { lock: true });
+           lenis.scrollTo(lenis.scroll + keys[e.key], { 
+             lock: true,
+             duration: 1.2
+           });
         }
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
+
+    // Forçar atualização do Lenis no mount para evitar pulos
+    lenis.scrollTo(window.scrollY, { immediate: true });
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
